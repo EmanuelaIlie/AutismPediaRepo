@@ -1,4 +1,4 @@
-package com.example.autismpedia
+package com.example.autismpedia.ui
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.autismpedia.viewmodels.LoginViewModel
+import com.example.autismpedia.R
 
 class LoginFragment : Fragment() {
 
