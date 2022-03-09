@@ -1,4 +1,4 @@
-package com.example.autismpedia
+package com.example.autismpedia.viewmodels
 
 import androidx.lifecycle.ViewModel
 
