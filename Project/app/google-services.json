@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "46220159447",
+    "project_id": "autismpedia-e7d4a",
+    "storage_bucket": "autismpedia-e7d4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46220159447:android:8de3f02560305194798392",
+        "android_client_info": {
+          "package_name": "com.example.autismpedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46220159447-k43keu3c9h8j09mhscuqkvij449j0cpk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZTDcOm1D4dwHAP-xH4X1dRVuMQJBpczg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46220159447-k43keu3c9h8j09mhscuqkvij449j0cpk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
