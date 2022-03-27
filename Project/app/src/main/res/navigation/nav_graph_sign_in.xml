@@ -11,7 +11,7 @@
         android:label="splash_screen_fragment"
         tools:layout="@layout/splash_screen_fragment" >
         <action
-            android:id="@+id/action_splashScreenFragment_to_loginFragment2"
+            android:id="@+id/action_splashScreenFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
