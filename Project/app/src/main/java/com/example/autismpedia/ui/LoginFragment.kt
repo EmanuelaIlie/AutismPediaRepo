@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.autismpedia.MainActivity
 import com.example.autismpedia.R
 import com.example.autismpedia.databinding.LoginFragmentBinding
 import com.example.autismpedia.viewmodels.LoginViewModel
@@ -98,8 +99,9 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     Timber.d( "signInWithCredential:success")
                     addUserToFirebase()
-                  //  findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToLoginDetailsFragment())
-                    Toast.makeText(requireContext(), "Success!", Toast.LENGTH_LONG).show()
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
                 } else {
                     Timber.w( "signInWithCredential:failure", task.exception)
                 }
