@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.autismpedia.databinding.SplashScreenFragmentBinding
 import com.example.autismpedia.viewmodels.SplashScreenViewModel
 
@@ -24,7 +25,7 @@ class SplashScreenFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-
+        findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
 
         return binding.root
     }
