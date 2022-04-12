@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_homeFragment_to_gameTypesFragment"
             app:destination="@id/gameTypesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_dailyFragment"
+            app:destination="@id/dailyFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
@@ -44,4 +47,9 @@
         android:name="com.example.autismpedia.ui.GameDetailsFragment"
         android:label="game_details_fragment"
         tools:layout="@layout/game_details_fragment" />
+    <fragment
+        android:id="@+id/dailyFragment"
+        android:name="com.example.autismpedia.ui.DailyFragment"
+        android:label="daily_fragment"
+        tools:layout="@layout/daily_fragment" />
 </navigation>
