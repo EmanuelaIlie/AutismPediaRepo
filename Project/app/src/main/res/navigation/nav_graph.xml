@@ -25,5 +25,23 @@
         android:id="@+id/gameTypesFragment"
         android:name="com.example.autismpedia.ui.GameTypesFragment"
         android:label="game_types_fragment"
-        tools:layout="@layout/game_types_fragment" />
+        tools:layout="@layout/game_types_fragment" >
+        <action
+            android:id="@+id/action_gameTypesFragment_to_gameIdeasFragment"
+            app:destination="@id/gameIdeasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameIdeasFragment"
+        android:name="com.example.autismpedia.ui.GameIdeasFragment"
+        android:label="game_ideas_fragment"
+        tools:layout="@layout/game_ideas_fragment" >
+        <action
+            android:id="@+id/action_gameIdeasFragment_to_gameDetailsFragment"
+            app:destination="@id/gameDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameDetailsFragment"
+        android:name="com.example.autismpedia.ui.GameDetailsFragment"
+        android:label="game_details_fragment"
+        tools:layout="@layout/game_details_fragment" />
 </navigation>
