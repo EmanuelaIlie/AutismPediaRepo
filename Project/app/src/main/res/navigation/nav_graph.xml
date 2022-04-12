@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_homeFragment_to_forumFragment"
             app:destination="@id/forumFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
@@ -60,4 +63,9 @@
         android:name="com.example.autismpedia.ui.ForumFragment"
         android:label="forum_fragment"
         tools:layout="@layout/forum_fragment" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.autismpedia.ui.MapFragment"
+        android:label="map_fragment"
+        tools:layout="@layout/map_fragment" />
 </navigation>
