@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">AutismPedia</string>
-    <string name="btn_sign_in_with_google">Sign in With Google</string>
+    <string name="btn_sign_in_with_google">Autentificare cu Google</string>
 </resources>
