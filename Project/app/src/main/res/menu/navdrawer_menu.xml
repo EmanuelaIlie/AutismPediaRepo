@@ -2,13 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment"
-        android:title="Home"/>
+        android:title="Acasa"/>
     <item
         android:id="@+id/infoFragment"
-        android:title="Info"/>
+        android:title="Informatii autism"/>
 
     <item
         android:id="@+id/gameTypesFragment"
         android:title="Jocuri"/>
+
+    <item
+        android:id="@+id/forumFragment"
+        android:title="Forum"/>
+
+    <item
+        android:id="@+id/dailyFragment"
+        android:title="Raport zilnic"/>
+
+    <item
+        android:id="@+id/mapFragment"
+        android:title="Harta"/>
 
 </menu>
