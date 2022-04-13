@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="GoogleTextColor">#444444</color>
     <color name="googleBtnBackground">#F5F5F5</color>
+    <color name="btnBackgroundGreen">#e9edc9</color>
 </resources>
