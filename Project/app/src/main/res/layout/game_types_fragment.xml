@@ -17,7 +17,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_games_types"
+        >
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_stories"
@@ -34,7 +37,7 @@
             android:onClick="@{() -> viewModel.onNavigateToGameIdeas()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_activities"
@@ -69,6 +72,18 @@
             app:layout_constraintEnd_toEndOf="@+id/btn_activities"
             app:layout_constraintStart_toStartOf="@+id/btn_activities"
             app:layout_constraintTop_toBottomOf="@+id/btn_activities" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_clipToCompositionBounds="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/catterpillar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -74,4 +74,8 @@ dependencies {
 
     // MATERIAL BUTTONS
     implementation('com.google.android.material:material:1.5.0')
+
+    //LOTTIE
+    implementation 'com.airbnb.android:lottie:5.0.3'
+
 }
