@@ -10,4 +10,6 @@
     <color name="GoogleTextColor">#444444</color>
     <color name="googleBtnBackground">#F5F5F5</color>
     <color name="btnBackgroundGreen">#e9edc9</color>
+    <color name="PrimaryGreen">#656d4a</color>
+    <color name="PrimaryGreenVariant">#414833</color>
 </resources>
