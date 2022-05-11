@@ -12,7 +12,7 @@
     <color name="btnBackgroundGreen">#e9edc9</color>
     <color name="PrimaryGreen">#656d4a</color>
     <color name="PrimaryGreenVariant">#414833</color>
-    <color name="PrincipleBackground">#e9f5db</color>
+    <color name="main_green_background">#e9f5db</color>
     <color name="HomeBackground">#f0efeb</color>
     <color name="GameTypeBackground">#f8edeb</color>
 

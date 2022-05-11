@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/PrincipleBackground">
+        android:background="@color/main_green_background">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnGoogleSignIn"
