@@ -18,7 +18,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
