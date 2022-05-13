@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.autismpedia.adapters.GameAdapter
+import com.example.autismpedia.adapters.GameListener
 import com.example.autismpedia.databinding.GameIdeasFragmentBinding
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.viewmodels.GameIdeasViewModel
@@ -26,7 +28,7 @@ class GameIdeasFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        adapter = GameAdapter()
+        setupOnClickItem()
         binding.gameList.adapter = adapter
 
         val gameList = listOf<Game>(
@@ -51,5 +53,11 @@ class GameIdeasFragment : Fragment() {
         adapter.submitList(gameList)
 
         return binding.root
+    }
+
+    private fun setupOnClickItem() {
+        adapter = GameAdapter(GameListener { gameId ->
+            findNavController().navigate(GameIdeasFragmentDirections.actionGameIdeasFragmentToStoriesFragment())
+        })
     }
 }

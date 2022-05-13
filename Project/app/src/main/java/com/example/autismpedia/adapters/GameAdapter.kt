@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.autismpedia.databinding.ListItemGameBinding
 import com.example.autismpedia.models.Game
 
-class GameAdapter :
+class GameAdapter(val clickListener: GameListener) :
     ListAdapter<Game, GameAdapter.ViewHolder>(GameDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
+        holder.bind(getItem(position), clickListener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,8 +21,9 @@ class GameAdapter :
     class ViewHolder private constructor(val binding: ListItemGameBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Game) {
+        fun bind(item: Game, clickListener: GameListener) {
             binding.game = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -46,4 +46,8 @@ class GameDiffCallback : DiffUtil.ItemCallback<Game>() {
     override fun areContentsTheSame(oldItem: Game, newItem: Game): Boolean {
         return oldItem == newItem
     }
+}
+
+class GameListener(val clickListener: (gameId: String) -> Unit) {
+    fun onClick(game: Game) = clickListener(game.id.toString())
 }

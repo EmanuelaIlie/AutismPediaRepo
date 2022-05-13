@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.StoriesFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.autismpedia.viewmodels.StoriesViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="TITLE"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_image_one"
+                android:layout_width="@dimen/width_iv_stories"
+                android:layout_height="@dimen/height_iv_stories"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                android:src="@drawable/ic_google"
+                tools:src="@drawable/ic_google"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_image_two"
+                android:layout_width="@dimen/width_iv_stories"
+                android:layout_height="@dimen/height_iv_stories"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_image_one"
+                android:src="@drawable/ic_google"
+                tools:src="@drawable/ic_google"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_image_three"
+                android:layout_width="@dimen/width_iv_stories"
+                android:layout_height="@dimen/height_iv_stories"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_image_two"
+                android:src="@drawable/ic_google"
+                tools:src="@drawable/ic_google"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

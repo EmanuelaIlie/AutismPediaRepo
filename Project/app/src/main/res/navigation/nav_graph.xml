@@ -45,14 +45,9 @@
         android:label="game_ideas_fragment"
         tools:layout="@layout/game_ideas_fragment" >
         <action
-            android:id="@+id/action_gameIdeasFragment_to_gameDetailsFragment"
-            app:destination="@id/gameDetailsFragment" />
+            android:id="@+id/action_gameIdeasFragment_to_storiesFragment"
+            app:destination="@id/storiesFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/gameDetailsFragment"
-        android:name="com.example.autismpedia.ui.GameDetailsFragment"
-        android:label="game_details_fragment"
-        tools:layout="@layout/game_details_fragment" />
     <fragment
         android:id="@+id/dailyFragment"
         android:name="com.example.autismpedia.ui.DailyFragment"
@@ -68,4 +63,9 @@
         android:name="com.example.autismpedia.ui.MapFragment"
         android:label="map_fragment"
         tools:layout="@layout/map_fragment" />
+    <fragment
+        android:id="@+id/storiesFragment"
+        android:name="com.example.autismpedia.ui.StoriesFragment"
+        android:label="fragment_stories"
+        tools:layout="@layout/fragment_stories" />
 </navigation>

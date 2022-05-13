@@ -8,9 +8,13 @@
         <variable
             name="game"
             type="com.example.autismpedia.models.Game" />
+        <variable
+            name="clickListener"
+            type="com.example.autismpedia.adapters.GameListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:onClick="@{() -> clickListener.onClick(game)}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
