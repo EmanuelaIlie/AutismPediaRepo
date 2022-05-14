@@ -31,8 +31,8 @@ class GameTypesFragment : Fragment() {
     }
 
     private fun setupObserves() {
-        viewModel.onNavigateToGameIdeas.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(GameTypesFragmentDirections.actionGameTypesFragmentToGameIdeasFragment())
+        viewModel.onNavigateToGameIdeas.observe(viewLifecycleOwner, Observer { gameType ->
+            findNavController().navigate(GameTypesFragmentDirections.actionGameTypesFragmentToGameIdeasFragment(gameType))
         })
     }
 

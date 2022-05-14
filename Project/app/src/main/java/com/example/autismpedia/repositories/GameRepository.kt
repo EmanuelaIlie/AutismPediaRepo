@@ -31,10 +31,10 @@ class GameRepository {
                 mGameCollection.collection(Constants.FIRESTORE_DAILY_ACTIVITIES_COLLECTION).get().await()
             }
         }
-        val Games = snapshot.toObjects(Game::class.java)
+        val games = snapshot.toObjects(Game::class.java)
 
         // Emit success state with data
-        emit(State.success(Games))
+        emit(State.success(games))
     }.catch {
         // If exception is thrown, emit failed state along with message.
         emit(State.failed(it.message.toString()))

@@ -2,15 +2,15 @@ package com.example.autismpedia.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.autismpedia.enums.GameType
 import com.example.autismpedia.utils.SingleLiveEvent
 
 class GameTypesViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
 
-     private val _onNavigateToGameIdeas=SingleLiveEvent<Void>()
-     val onNavigateToGameIdeas: LiveData<Void> =_onNavigateToGameIdeas
+     private val _onNavigateToGameIdeas=SingleLiveEvent<GameType>()
+     val onNavigateToGameIdeas: LiveData<GameType> =_onNavigateToGameIdeas
 
-    fun onNavigateToGameIdeas(){
-        _onNavigateToGameIdeas.call()
+    fun onNavigateToGameIdeas(gameType: GameType){
+        _onNavigateToGameIdeas.value = gameType
     }
 }

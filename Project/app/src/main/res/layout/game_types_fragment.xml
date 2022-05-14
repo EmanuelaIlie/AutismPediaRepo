@@ -8,6 +8,7 @@
         <variable
             name="viewModel"
             type="com.example.autismpedia.viewmodels.GameTypesViewModel" />
+        <import type="com.example.autismpedia.enums.GameType"/>
     </data>
 
   <ScrollView
@@ -34,7 +35,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:cornerRadius="10dp"
-            android:onClick="@{() -> viewModel.onNavigateToGameIdeas()}"
+            android:onClick="@{() -> viewModel.onNavigateToGameIdeas(GameType.STORY)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -51,7 +52,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:cornerRadius="10dp"
-            android:onClick="@{() -> viewModel.onNavigateToGameIdeas()}"
+            android:onClick="@{() -> viewModel.onNavigateToGameIdeas(GameType.DAILY_ACTIVITIES)}"
             app:layout_constraintEnd_toEndOf="@+id/btn_stories"
             app:layout_constraintStart_toStartOf="@+id/btn_stories"
             app:layout_constraintTop_toBottomOf="@+id/btn_stories" />
@@ -68,7 +69,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:cornerRadius="10dp"
-            android:onClick="@{() -> viewModel.onNavigateToGameIdeas()}"
+            android:onClick="@{() -> viewModel.onNavigateToGameIdeas(GameType.DIDACTIC)}"
             app:layout_constraintEnd_toEndOf="@+id/btn_activities"
             app:layout_constraintStart_toStartOf="@+id/btn_activities"
             app:layout_constraintTop_toBottomOf="@+id/btn_activities" />

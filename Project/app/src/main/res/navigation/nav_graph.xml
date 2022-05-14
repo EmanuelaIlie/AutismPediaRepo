@@ -44,6 +44,9 @@
         android:name="com.example.autismpedia.ui.GameIdeasFragment"
         android:label="game_ideas_fragment"
         tools:layout="@layout/game_ideas_fragment" >
+        <argument
+            android:name="gameType"
+            app:argType="com.example.autismpedia.enums.GameType" />
         <action
             android:id="@+id/action_gameIdeasFragment_to_storiesFragment"
             app:destination="@id/storiesFragment" />

@@ -9,16 +9,16 @@ import com.example.autismpedia.models.Game
 import com.google.firebase.storage.FirebaseStorage
 
 @BindingAdapter("itemTitle")
-fun TextView.setDescription(item: Game?) {
+fun TextView.setTitle(item: Game?) {
     item?.let {
-        text = item.description
+        text = item.title
     }
 }
 
-@BindingAdapter("description")
-fun TextView.setUsage(item: Game?) {
+@BindingAdapter("itemDescription")
+fun TextView.setDescription(item: Game?) {
     item?.let {
-        text = item.description.toString()
+        text = item.description
     }
 }
 
