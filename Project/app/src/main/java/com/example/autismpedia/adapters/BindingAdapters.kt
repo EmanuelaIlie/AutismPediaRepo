@@ -31,6 +31,7 @@ fun loadImage(imageView: ImageView?, game: Game) {
     gsReference.listAll()
         .addOnSuccessListener { listResult ->
             listResult.items.forEach { item ->
+                println("item: ${item.name}")
                 if(item.toString().contains(game.id.toString())) {
                     val extension = item.toString().substringAfterLast(".")
                     val imageRef = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${game.id}.$extension")
@@ -38,6 +39,5 @@ fun loadImage(imageView: ImageView?, game: Game) {
                 }
             }
         }
-
 }
 
