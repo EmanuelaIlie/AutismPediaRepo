@@ -17,4 +17,6 @@ class StoriesViewModel(private val repository: GameRepository) : ViewModel() {
     }
 
     fun onAddImageToFirebase(game: Game, fileName: String, fileUri: Uri) = repository.addImageIdToFirebase(game, fileName, fileUri)
+
+    fun removeImageFromFirebaseStorage(game: Game, fileName: String) = repository.removeImageFromFirebaseStorage(game, fileName)
 }

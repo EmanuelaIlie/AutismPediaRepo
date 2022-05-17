@@ -14,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.example.autismpedia.adapters.loadImageParam
 import com.example.autismpedia.databinding.FragmentStoriesBinding
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.State
@@ -82,8 +81,9 @@ class StoriesFragment : Fragment() {
     }
 
     private suspend fun addImageIdToFirestore(fileName: String, fileUri: Uri) {
-        currentGame.images[currentImageNr] = fileName
-        viewModel.onAddImageToFirebase(currentGame, fileName, fileUri).collect() { state ->
+        val newGame = currentGame
+        newGame.images[currentImageNr] = fileName
+        viewModel.onAddImageToFirebase(newGame, fileName, fileUri).collect() { state ->
             when(state) {
                 is State.Loading -> {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
@@ -98,6 +98,7 @@ class StoriesFragment : Fragment() {
                         4 -> binding.ivImageFour.setImageURI(fileUri)
                         5 -> binding.ivImageFive.setImageURI(fileUri)
                     }
+                    removeImage(currentGame.images[currentImageNr])
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
 
@@ -105,4 +106,24 @@ class StoriesFragment : Fragment() {
         }
     }
 
+    private fun removeImage(fileName: String) {
+        lifecycleScope.launch {
+            removeImageFromFirebaseStorage(fileName)
+        }
+    }
+
+    private suspend fun removeImageFromFirebaseStorage(fileName: String) {
+        viewModel.removeImageFromFirebaseStorage(currentGame, fileName).collect() { state ->
+            when(state) {
+                is State.Loading -> {
+                    Toast.makeText(requireContext(), "Attempting to remove image", Toast.LENGTH_LONG).show()
+                }
+                is State.Success -> {
+                    Toast.makeText(requireContext(), "Removed", Toast.LENGTH_SHORT).show()
+                }
+                is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
+
+            }
+        }
+    }
 }

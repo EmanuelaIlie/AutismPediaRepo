@@ -53,4 +53,19 @@ class GameRepository {
     }.catch {
         emit(State.failed(it.message.toString()))
     }.flowOn(Dispatchers.IO)
+
+
+    fun removeImageFromFirebaseStorage(game: Game, fileName: String) = flow<State<DocumentReference>> {
+        emit(State.loading())
+
+        // add image file to storage
+        val extension = ".jpg"
+        val refStorage = FirebaseStorage.getInstance().reference.child("${game.type}/${Constants.FIRESTORE_STORAGE_IMAGES_FOLDER}/$fileName$extension")
+        refStorage.delete()
+
+        emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
 }
