@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class Game (
         @DocumentId
         @SerialName("id") val id: String? = "",
-        @SerialName("images") val images: List<String> = listOf(""),
+        @SerialName("images") val images: MutableList<String> = mutableListOf(""),
         @SerialName("type") val type: String? = "",
         @SerialName("title") val title: String? = "",
         @SerialName("description") val description: String? = "",

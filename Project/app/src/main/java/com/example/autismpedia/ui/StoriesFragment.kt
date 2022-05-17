@@ -9,22 +9,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
-import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentStoriesBinding
-import com.example.autismpedia.databinding.GameIdeasFragmentBinding
+import com.example.autismpedia.enums.GameType
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.Constants
-import com.example.autismpedia.utils.Constants.REQUEST_CODE
-import com.example.autismpedia.viewmodels.GameIdeasViewModel
 import com.example.autismpedia.viewmodels.StoriesViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
+import kotlinx.coroutines.tasks.await
+import java.util.*
 
 class StoriesFragment : Fragment() {
 
@@ -71,11 +67,47 @@ class StoriesFragment : Fragment() {
             val data: Intent? = result.data
             if (data?.data != null) {
                 val imageUri: Uri = data.data!!
-                // add image to storage / firestore (game.id, imageNr)
-                println("vlad: $currentImageNr - $currentGame")
-                binding.ivImageOne.setImageURI(imageUri)
+                uploadImageToFirebase(imageUri)
             }
         }
+    }
+
+    private fun uploadImageToFirebase(fileUri: Uri) {
+        if (fileUri != null) {
+            val fileName = UUID.randomUUID().toString()
+            val extension = ".jpg"
+            val refStorage = FirebaseStorage.getInstance().reference.child("STORY/images/$fileName$extension")
+
+            refStorage.putFile(fileUri)
+                .addOnSuccessListener { taskSnapshot ->
+                    taskSnapshot.storage.downloadUrl.addOnSuccessListener {
+                        val imageUrl = it.toString()
+                        addNewImageIdToFirestore(fileName)
+                    }
+                }
+
+                .addOnFailureListener { e ->
+                    print(e.message)
+                }
+        }
+    }
+
+    private fun addNewImageIdToFirestore(fileName: String) {
+        val mGameCollection = FirebaseFirestore.getInstance()
+        currentGame.images[currentImageNr] = fileName
+
+        val gameRef = when(GameType.from(currentGame.type.toString())) {
+            GameType.STORY -> {
+                mGameCollection.collection(Constants.FIRESTORE_STORIES_COLLECTION).document(currentGame.id.toString()).update("images", currentGame.images)
+            }
+            GameType.DIDACTIC -> {
+                mGameCollection.collection(Constants.FIRESTORE_DIDACTIC_COLLECTION).document(currentGame.id.toString()).update("images", currentGame.images)
+            }
+            GameType.DAILY_ACTIVITIES -> {
+                mGameCollection.collection(Constants.FIRESTORE_DAILY_ACTIVITIES_COLLECTION).document(currentGame.id.toString()).update("images", currentGame.images)
+            }
+        }
+
     }
 
 }

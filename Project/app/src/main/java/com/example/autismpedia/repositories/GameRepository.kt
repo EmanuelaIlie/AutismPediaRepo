@@ -46,7 +46,7 @@ class GameRepository {
         // Emit loading state
         emit(State.loading())
 
-        val GameRef = when(gameType) {
+        val gameRef = when(gameType) {
             GameType.STORY -> {
                 mGameCollection.collection(Constants.FIRESTORE_STORIES_COLLECTION).add(Game).await()
             }
@@ -59,7 +59,7 @@ class GameRepository {
         }
 
         // Emit success state with Game reference
-        emit(State.success(GameRef))
+        emit(State.success(gameRef))
     }.catch {
         // If exception is thrown, emit failed state along with message.
         emit(State.failed(it.message.toString()))
