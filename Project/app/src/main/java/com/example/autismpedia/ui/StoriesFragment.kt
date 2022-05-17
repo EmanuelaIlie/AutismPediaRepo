@@ -11,8 +11,11 @@ import com.bumptech.glide.Glide
 import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentStoriesBinding
 import com.example.autismpedia.databinding.GameIdeasFragmentBinding
+import com.example.autismpedia.utils.Constants
 import com.example.autismpedia.viewmodels.GameIdeasViewModel
 import com.example.autismpedia.viewmodels.StoriesViewModel
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class StoriesFragment : Fragment() {
 
@@ -29,7 +32,7 @@ class StoriesFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        binding.tvTitle.text = args.game.title
+        binding.game = args.game
 
         return binding.root
     }

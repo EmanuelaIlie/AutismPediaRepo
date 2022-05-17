@@ -9,6 +9,9 @@
         <variable
             name="viewModel"
             type="com.example.autismpedia.viewmodels.StoriesViewModel" />
+        <variable
+            name="game"
+            type="com.example.autismpedia.models.Game" />
     </data>
 
     <ScrollView
@@ -25,20 +28,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="TITLE"
+                android:text="@{game.title}"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_image_zero"
+                android:layout_width="@dimen/width_iv_stories"
+                android:layout_height="@dimen/height_iv_stories"
+                android:layout_marginTop="30dp"
+                app:loadImageParam="@{game}"
+                app:imageNr="@{0}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                android:src="@drawable/ic_google"
+                tools:src="@drawable/ic_google"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_image_one"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
                 android:layout_marginTop="30dp"
+                app:loadImageParam="@{game}"
+                app:imageNr="@{1}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintTop_toBottomOf="@id/iv_image_zero"
                 android:src="@drawable/ic_google"
                 tools:src="@drawable/ic_google"/>
 
@@ -47,6 +65,8 @@
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
                 android:layout_marginTop="30dp"
+                app:loadImageParam="@{game}"
+                app:imageNr="@{2}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_one"
@@ -58,11 +78,41 @@
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
                 android:layout_marginTop="30dp"
+                app:loadImageParam="@{game}"
+                app:imageNr="@{3}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_two"
                 android:src="@drawable/ic_google"
                 tools:src="@drawable/ic_google"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_image_four"
+                android:layout_width="@dimen/width_iv_stories"
+                android:layout_height="@dimen/height_iv_stories"
+                android:layout_marginTop="30dp"
+                app:loadImageParam="@{game}"
+                app:imageNr="@{4}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_image_three"
+                android:src="@drawable/ic_google"
+                tools:src="@drawable/ic_google"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_image_five"
+                android:layout_width="@dimen/width_iv_stories"
+                android:layout_height="@dimen/height_iv_stories"
+                android:layout_marginTop="30dp"
+                app:loadImageParam="@{game}"
+                app:imageNr="@{5}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_image_four"
+                android:src="@drawable/ic_google"
+                tools:src="@drawable/ic_google"/>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
