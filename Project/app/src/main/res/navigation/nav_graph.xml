@@ -70,5 +70,9 @@
         android:id="@+id/storiesFragment"
         android:name="com.example.autismpedia.ui.StoriesFragment"
         android:label="fragment_stories"
-        tools:layout="@layout/fragment_stories" />
+        tools:layout="@layout/fragment_stories">
+        <argument
+            android:name="game"
+            app:argType="com.example.autismpedia.models.Game" />
+    </fragment>
 </navigation>

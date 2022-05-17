@@ -68,8 +68,8 @@ class GameIdeasFragment : Fragment() {
     }
 
     private fun setupOnClickItem() {
-        adapter = GameAdapter(GameListener { gameId ->
-            findNavController().navigate(GameIdeasFragmentDirections.actionGameIdeasFragmentToStoriesFragment())
+        adapter = GameAdapter(GameListener { game ->
+            findNavController().navigate(GameIdeasFragmentDirections.actionGameIdeasFragmentToStoriesFragment(game))
         })
     }
 }

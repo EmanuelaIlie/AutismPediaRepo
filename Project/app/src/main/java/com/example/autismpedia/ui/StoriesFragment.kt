@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentStoriesBinding
@@ -17,6 +18,7 @@ class StoriesFragment : Fragment() {
 
     private lateinit var viewModel: StoriesViewModel
     private lateinit var binding: FragmentStoriesBinding
+    private val args: StoriesFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +28,8 @@ class StoriesFragment : Fragment() {
         binding = FragmentStoriesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        binding.tvTitle.text = args.game.title
 
         return binding.root
     }
