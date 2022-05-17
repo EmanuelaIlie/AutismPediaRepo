@@ -78,7 +78,7 @@ class StoriesFragment : Fragment() {
             val extension = ".jpg"
 
             val type = currentGame.type
-            val refStorage = FirebaseStorage.getInstance().reference.child("$type/images/$fileName$extension")
+            val refStorage = FirebaseStorage.getInstance().reference.child("$type/${Constants.FIRESTORE_STORAGE_IMAGES_FOLDER}/$fileName$extension")
 
             refStorage.putFile(fileUri)
                 .addOnSuccessListener { taskSnapshot ->
@@ -98,7 +98,7 @@ class StoriesFragment : Fragment() {
         val mGameCollection = FirebaseFirestore.getInstance()
         currentGame.images[currentImageNr] = fileName
 
-        val gameRef = mGameCollection.collection(currentGame.type.toString()).document(currentGame.id.toString()).update("images", currentGame.images)
+        val gameRef = mGameCollection.collection(currentGame.type.toString()).document(currentGame.id.toString()).update(Constants.FIRESTORE_STORAGE_IMAGES_FOLDER, currentGame.images)
 
     }
 
