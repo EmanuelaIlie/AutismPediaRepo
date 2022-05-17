@@ -6,6 +6,7 @@ import com.example.autismpedia.utils.Constants
 import com.example.autismpedia.utils.State
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -16,33 +17,32 @@ class GameRepository {
     private val mGameCollection = FirebaseFirestore.getInstance()
 
     fun getAllGames(gameType: GameType) = flow<State<List<Game>>>{
-
-        // Emit loading state
         emit(State.loading())
-
         val snapshot = mGameCollection.collection(gameType.string).get().await()
-
         val games = snapshot.toObjects(Game::class.java)
 
-        // Emit success state with data
         emit(State.success(games))
     }.catch {
-        // If exception is thrown, emit failed state along with message.
         emit(State.failed(it.message.toString()))
     }.flowOn(Dispatchers.IO)
 
 
     fun addGame(game: Game, gameType: GameType) = flow<State<DocumentReference>> {
-
-        // Emit loading state
         emit(State.loading())
-
         val gameRef = mGameCollection.collection(game.type.toString()).add(game).await()
 
-        // Emit success state with Game reference
         emit(State.success(gameRef))
     }.catch {
-        // If exception is thrown, emit failed state along with message.
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+
+    fun addImageIdToFirestore(game: Game) = flow<State<DocumentReference>> {
+        emit(State.loading())
+        val gameRef = mGameCollection.collection(game.type.toString()).document(game.id.toString()).update(Constants.FIRESTORE_STORAGE_IMAGES_FOLDER, game.images).await()
+
+        emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
+    }.catch {
         emit(State.failed(it.message.toString()))
     }.flowOn(Dispatchers.IO)
 }

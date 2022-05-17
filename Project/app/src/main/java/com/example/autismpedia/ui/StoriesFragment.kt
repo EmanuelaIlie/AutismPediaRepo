@@ -9,17 +9,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.autismpedia.databinding.FragmentStoriesBinding
-import com.example.autismpedia.enums.GameType
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.Constants
+import com.example.autismpedia.utils.State
+import com.example.autismpedia.viewmodelfactories.StoriesViewModelFactory
 import com.example.autismpedia.viewmodels.StoriesViewModel
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.*
 
 class StoriesFragment : Fragment() {
@@ -34,7 +37,8 @@ class StoriesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this)[StoriesViewModel::class.java]
+        val viewModelFactory = StoriesViewModelFactory()
+        viewModel = ViewModelProvider(this, viewModelFactory)[StoriesViewModel::class.java]
         binding = FragmentStoriesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -47,7 +51,7 @@ class StoriesFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.onAddImage.observe(viewLifecycleOwner, Observer {
+        viewModel.onAddImageToStorage.observe(viewLifecycleOwner, Observer {
             currentGame = it.first
             currentImageNr = it.second
             openGalleryForImage()
@@ -67,12 +71,12 @@ class StoriesFragment : Fragment() {
             val data: Intent? = result.data
             if (data?.data != null) {
                 val imageUri: Uri = data.data!!
-                uploadImageToFirebase(imageUri)
+                uploadImageToStorage(imageUri)
             }
         }
     }
 
-    private fun uploadImageToFirebase(fileUri: Uri) {
+    private fun uploadImageToStorage(fileUri: Uri) {
         if (fileUri != null) {
             val fileName = UUID.randomUUID().toString()
             val extension = ".jpg"
@@ -84,7 +88,9 @@ class StoriesFragment : Fragment() {
                 .addOnSuccessListener { taskSnapshot ->
                     taskSnapshot.storage.downloadUrl.addOnSuccessListener {
                         val imageUrl = it.toString()
-                        addNewImageIdToFirestore(fileName)
+                        lifecycleScope.launch {
+                            addImageIdToFirestore(fileName)
+                        }
                     }
                 }
 
@@ -94,12 +100,20 @@ class StoriesFragment : Fragment() {
         }
     }
 
-    private fun addNewImageIdToFirestore(fileName: String) {
-        val mGameCollection = FirebaseFirestore.getInstance()
+    private suspend fun addImageIdToFirestore(fileName: String) {
         currentGame.images[currentImageNr] = fileName
+        viewModel.onAddImageIdToFirestore(currentGame).collect() { state ->
+            when(state) {
+                is State.Loading -> {
+                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                }
+                is State.Success -> {
+                    Toast.makeText(requireContext(), "Added", Toast.LENGTH_SHORT).show()
+                }
+                is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
 
-        val gameRef = mGameCollection.collection(currentGame.type.toString()).document(currentGame.id.toString()).update(Constants.FIRESTORE_STORAGE_IMAGES_FOLDER, currentGame.images)
-
+            }
+        }
     }
 
 }

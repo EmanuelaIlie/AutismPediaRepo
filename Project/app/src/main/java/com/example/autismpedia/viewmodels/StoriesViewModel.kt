@@ -4,13 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.autismpedia.models.Game
+import com.example.autismpedia.repositories.GameRepository
 
-class StoriesViewModel : ViewModel() {
+class StoriesViewModel(private val repository: GameRepository) : ViewModel() {
 
-    private val _onAddImage = MutableLiveData<Pair<Game, Int>>()
-    val onAddImage : LiveData<Pair<Game, Int>> = _onAddImage
+    private val _onAddImageToStorage = MutableLiveData<Pair<Game, Int>>()
+    val onAddImageToStorage : LiveData<Pair<Game, Int>> = _onAddImageToStorage
 
     fun onAddImageClicked(game: Game, imageNr: Int) {
-        _onAddImage.value = Pair(game, imageNr)
+        _onAddImageToStorage.value = Pair(game, imageNr)
     }
+
+    fun onAddImageIdToFirestore(game: Game) = repository.addImageIdToFirestore(game)
 }
