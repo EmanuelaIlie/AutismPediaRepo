@@ -1,5 +1,6 @@
 package com.example.autismpedia.repositories
 
+import android.net.Uri
 import com.example.autismpedia.enums.GameType
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.Constants
@@ -37,9 +38,16 @@ class GameRepository {
     }.flowOn(Dispatchers.IO)
 
 
-    fun addImageIdToFirestore(game: Game) = flow<State<DocumentReference>> {
+    fun addImageIdToFirebase(game: Game, fileName: String, fileUri: Uri) = flow<State<DocumentReference>> {
         emit(State.loading())
-        val gameRef = mGameCollection.collection(game.type.toString()).document(game.id.toString()).update(Constants.FIRESTORE_STORAGE_IMAGES_FOLDER, game.images).await()
+
+        // add image file to storage
+        val extension = ".jpg"
+        val refStorage = FirebaseStorage.getInstance().reference.child("${game.type}/${Constants.FIRESTORE_STORAGE_IMAGES_FOLDER}/$fileName$extension")
+        refStorage.putFile(fileUri).await()
+
+        // add id to firestore
+        mGameCollection.collection(game.type.toString()).document(game.id.toString()).update(Constants.FIRESTORE_STORAGE_IMAGES_FOLDER, game.images).await()
 
         emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
     }.catch {

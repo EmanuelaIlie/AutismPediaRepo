@@ -16,12 +16,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.autismpedia.databinding.FragmentStoriesBinding
 import com.example.autismpedia.models.Game
-import com.example.autismpedia.utils.Constants
 import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.StoriesViewModelFactory
 import com.example.autismpedia.viewmodels.StoriesViewModel
-import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -51,7 +48,7 @@ class StoriesFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.onAddImageToStorage.observe(viewLifecycleOwner, Observer {
+        viewModel.onAddImageToFirebase.observe(viewLifecycleOwner, Observer {
             currentGame = it.first
             currentImageNr = it.second
             openGalleryForImage()
@@ -70,39 +67,22 @@ class StoriesFragment : Fragment() {
         if(result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             if (data?.data != null) {
-                val imageUri: Uri = data.data!!
-                uploadImageToStorage(imageUri)
+                val fileUri: Uri = data.data!!
+                uploadImageToFirebase(fileUri)
             }
         }
     }
 
-    private fun uploadImageToStorage(fileUri: Uri) {
-        if (fileUri != null) {
+    private fun uploadImageToFirebase(fileUri: Uri) {
+        lifecycleScope.launch {
             val fileName = UUID.randomUUID().toString()
-            val extension = ".jpg"
-
-            val type = currentGame.type
-            val refStorage = FirebaseStorage.getInstance().reference.child("$type/${Constants.FIRESTORE_STORAGE_IMAGES_FOLDER}/$fileName$extension")
-
-            refStorage.putFile(fileUri)
-                .addOnSuccessListener { taskSnapshot ->
-                    taskSnapshot.storage.downloadUrl.addOnSuccessListener {
-                        val imageUrl = it.toString()
-                        lifecycleScope.launch {
-                            addImageIdToFirestore(fileName)
-                        }
-                    }
-                }
-
-                .addOnFailureListener { e ->
-                    print(e.message)
-                }
+            addImageIdToFirestore(fileName, fileUri)
         }
     }
 
-    private suspend fun addImageIdToFirestore(fileName: String) {
+    private suspend fun addImageIdToFirestore(fileName: String, fileUri: Uri) {
         currentGame.images[currentImageNr] = fileName
-        viewModel.onAddImageIdToFirestore(currentGame).collect() { state ->
+        viewModel.onAddImageToFirebase(currentGame, fileName, fileUri).collect() { state ->
             when(state) {
                 is State.Loading -> {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
