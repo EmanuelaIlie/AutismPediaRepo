@@ -56,19 +56,6 @@ fun loadImageParam(imageView: ImageView?, game: Game, imageNr: Int) {
                 }
             }
         }
-
-//        gsReference.listAll()
-//        .addOnSuccessListener { listResult ->
-//            listResult.items.forEach { storageItem ->
-//                game.images.forEach { listItem ->
-//                    if(storageItem.name == listItem) {
-//                        val extension = storageItem.name.substringAfterLast(".")
-//                        val imageRef = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${Constants.FIRESTORE_STORAGE_IMAGES_FOLDER}/${storageItem.name}.$extension")
-//                        imageView?.let { Glide.with(it.context).load(imageRef).into(imageView) }
-//                    }
-//                }
-//            }
-//        }
 }
 
 
