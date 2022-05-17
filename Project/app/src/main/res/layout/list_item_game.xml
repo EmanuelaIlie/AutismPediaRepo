@@ -14,17 +14,25 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:onClick="@{() -> clickListener.onClick(game)}"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_corners_white"
+        android:onClick="@{() -> clickListener.onClick(game)}">
 
-        <ImageView
-            android:id="@+id/tv_game_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_game_image"
+            android:background="@drawable/rounded_corners_white"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            app:shapeAppearanceOverlay="@style/ImageView.Corner"
             app:loadImage="@{game}"
             android:src="@drawable/ic_google"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,16 +42,18 @@
 
         <TextView
             android:id="@+id/tv_game_title"
+            style="@style/ListItemTitleStyle"
             android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/andika_new_basic"
             app:itemTitle="@{game}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_game_image"
-            app:layout_constraintTop_toTopOf="@+id/tv_game_image"
-            tools:text="Title" />
+            app:layout_constraintStart_toEndOf="@+id/iv_game_image"
+            app:layout_constraintTop_toTopOf="@+id/iv_game_image"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_game_image"
+            tools:text="Title " />
 
         <TextView
             android:id="@+id/tv_description"
@@ -51,10 +61,11 @@
             android:layout_height="20dp"
             android:layout_marginTop="8dp"
             app:itemDescription="@{game}"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/tv_game_title"
             app:layout_constraintStart_toStartOf="@+id/tv_game_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_game_title"
-            tools:text="10%" />
+            tools:text="description" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
