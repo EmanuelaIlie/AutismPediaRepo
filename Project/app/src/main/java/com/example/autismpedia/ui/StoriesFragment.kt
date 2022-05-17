@@ -9,13 +9,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentStoriesBinding
 import com.example.autismpedia.databinding.GameIdeasFragmentBinding
+import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.Constants
 import com.example.autismpedia.utils.Constants.REQUEST_CODE
 import com.example.autismpedia.viewmodels.GameIdeasViewModel
@@ -28,6 +31,8 @@ class StoriesFragment : Fragment() {
     private lateinit var viewModel: StoriesViewModel
     private lateinit var binding: FragmentStoriesBinding
     private val args: StoriesFragmentArgs by navArgs()
+    private lateinit var currentGame: Game
+    private var currentImageNr = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,9 +45,17 @@ class StoriesFragment : Fragment() {
 
         binding.game = args.game
 
-        openGalleryForImage()
+        setupObservers()
 
         return binding.root
+    }
+
+    private fun setupObservers() {
+        viewModel.onAddImage.observe(viewLifecycleOwner, Observer {
+            currentGame = it.first
+            currentImageNr = it.second
+            openGalleryForImage()
+        })
     }
 
 
@@ -58,6 +71,8 @@ class StoriesFragment : Fragment() {
             val data: Intent? = result.data
             if (data?.data != null) {
                 val imageUri: Uri = data.data!!
+                // add image to storage / firestore (game.id, imageNr)
+                println("vlad: $currentImageNr - $currentGame")
                 binding.ivImageOne.setImageURI(imageUri)
             }
         }
