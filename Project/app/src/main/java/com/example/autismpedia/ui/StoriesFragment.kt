@@ -76,7 +76,9 @@ class StoriesFragment : Fragment() {
         if (fileUri != null) {
             val fileName = UUID.randomUUID().toString()
             val extension = ".jpg"
-            val refStorage = FirebaseStorage.getInstance().reference.child("STORY/images/$fileName$extension")
+
+            val type = currentGame.type
+            val refStorage = FirebaseStorage.getInstance().reference.child("$type/images/$fileName$extension")
 
             refStorage.putFile(fileUri)
                 .addOnSuccessListener { taskSnapshot ->
@@ -96,17 +98,7 @@ class StoriesFragment : Fragment() {
         val mGameCollection = FirebaseFirestore.getInstance()
         currentGame.images[currentImageNr] = fileName
 
-        val gameRef = when(GameType.from(currentGame.type.toString())) {
-            GameType.STORY -> {
-                mGameCollection.collection(Constants.FIRESTORE_STORIES_COLLECTION).document(currentGame.id.toString()).update("images", currentGame.images)
-            }
-            GameType.DIDACTIC -> {
-                mGameCollection.collection(Constants.FIRESTORE_DIDACTIC_COLLECTION).document(currentGame.id.toString()).update("images", currentGame.images)
-            }
-            GameType.DAILY_ACTIVITIES -> {
-                mGameCollection.collection(Constants.FIRESTORE_DAILY_ACTIVITIES_COLLECTION).document(currentGame.id.toString()).update("images", currentGame.images)
-            }
-        }
+        val gameRef = mGameCollection.collection(currentGame.type.toString()).document(currentGame.id.toString()).update("images", currentGame.images)
 
     }
 

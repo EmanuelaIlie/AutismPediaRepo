@@ -20,17 +20,8 @@ class GameRepository {
         // Emit loading state
         emit(State.loading())
 
-        val snapshot = when(gameType) {
-            GameType.STORY -> {
-                mGameCollection.collection(Constants.FIRESTORE_STORIES_COLLECTION).get().await()
-            }
-            GameType.DIDACTIC -> {
-                mGameCollection.collection(Constants.FIRESTORE_DIDACTIC_COLLECTION).get().await()
-            }
-            GameType.DAILY_ACTIVITIES -> {
-                mGameCollection.collection(Constants.FIRESTORE_DAILY_ACTIVITIES_COLLECTION).get().await()
-            }
-        }
+        val snapshot = mGameCollection.collection(gameType.string).get().await()
+
         val games = snapshot.toObjects(Game::class.java)
 
         // Emit success state with data
@@ -41,22 +32,12 @@ class GameRepository {
     }.flowOn(Dispatchers.IO)
 
 
-    fun addGame(Game: Game, gameType: GameType) = flow<State<DocumentReference>> {
+    fun addGame(game: Game, gameType: GameType) = flow<State<DocumentReference>> {
 
         // Emit loading state
         emit(State.loading())
 
-        val gameRef = when(gameType) {
-            GameType.STORY -> {
-                mGameCollection.collection(Constants.FIRESTORE_STORIES_COLLECTION).add(Game).await()
-            }
-            GameType.DIDACTIC -> {
-                mGameCollection.collection(Constants.FIRESTORE_DIDACTIC_COLLECTION).add(Game).await()
-            }
-            GameType.DAILY_ACTIVITIES -> {
-                mGameCollection.collection(Constants.FIRESTORE_DAILY_ACTIVITIES_COLLECTION).add(Game).await()
-            }
-        }
+        val gameRef = mGameCollection.collection(game.type.toString()).add(game).await()
 
         // Emit success state with Game reference
         emit(State.success(gameRef))
