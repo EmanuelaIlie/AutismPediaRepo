@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.example.autismpedia.adapters.loadImageParam
 import com.example.autismpedia.databinding.FragmentStoriesBinding
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.State
@@ -89,6 +90,14 @@ class StoriesFragment : Fragment() {
                 }
                 is State.Success -> {
                     Toast.makeText(requireContext(), "Added", Toast.LENGTH_SHORT).show()
+                    when(currentImageNr) {
+                        0 -> binding.ivImageZero.setImageURI(fileUri)
+                        1 -> binding.ivImageOne.setImageURI(fileUri)
+                        2 -> binding.ivImageTwo.setImageURI(fileUri)
+                        3 -> binding.ivImageThree.setImageURI(fileUri)
+                        4 -> binding.ivImageFour.setImageURI(fileUri)
+                        5 -> binding.ivImageFive.setImageURI(fileUri)
+                    }
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
 
