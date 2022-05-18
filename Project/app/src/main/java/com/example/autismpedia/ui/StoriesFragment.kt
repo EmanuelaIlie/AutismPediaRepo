@@ -81,8 +81,9 @@ class StoriesFragment : Fragment() {
     }
 
     private suspend fun addImageIdToFirestore(fileName: String, fileUri: Uri) {
-        val newGame = currentGame
-        newGame.images[currentImageNr] = fileName
+        val newList = currentGame.images.toMutableList()
+        newList[currentImageNr] = fileName
+        val newGame = currentGame.copy(images = newList)
         viewModel.onAddImageToFirebase(newGame, fileName, fileUri).collect() { state ->
             when(state) {
                 is State.Loading -> {
