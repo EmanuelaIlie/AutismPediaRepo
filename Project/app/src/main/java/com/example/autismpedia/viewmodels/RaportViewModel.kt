@@ -2,6 +2,6 @@ package com.example.autismpedia.viewmodels
 
 import androidx.lifecycle.ViewModel
 
-class DailyViewModel : ViewModel() {
+class RaportViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

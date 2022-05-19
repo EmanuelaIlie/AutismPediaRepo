@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.StoriesFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.autismpedia.viewmodels.DailyActivitiesViewModel" />
+
+        <variable
+            name="game"
+            type="com.example.autismpedia.models.Game" />
+
+        <import type="com.example.autismpedia.enums.DailyActivitiesType"/>
+    </data>
+
+    <ScrollView
+        android:background="@color/main_green_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                style="@style/StoryTitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@{game.title}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Spalat pe dinti" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/ListItemTitleStyle"
+                android:id="@+id/tv_hello"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/tv_hello"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/cl_obiecte_necesare"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_obiecte_necesare"
+                android:background="@drawable/rounded_corners_white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@+id/tv_hello"
+                app:layout_constraintBottom_toTopOf="@id/cl_steps"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_obiecte_necesare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:text="@string/tv_obiecte_necesare"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/et_add_obiecte_necesare"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save_obiecte_necesare"
+                    android:backgroundTint="@color/googleBtnBackground"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_salveaza"
+                    android:textSize="@dimen/dimen10sp"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="20dp"
+                    android:onClick="@{() -> viewModel.onSaveTextClicked(DailyActivitiesType.NECESSARY_OBJECTS)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_obiecte_necesare"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_obiecte_necesare"
+                    />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_add_obiecte_necesare"
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:background="@drawable/rounded_corners"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/et_hint_adauga_introducere_si_obiectele_necesare"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_obiecte_necesare"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_steps"
+                android:background="@drawable/rounded_corners_white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                app:layout_constraintTop_toBottomOf="@+id/cl_obiecte_necesare"
+                app:layout_constraintBottom_toTopOf="@id/tv_gooodbye"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:text="@string/tv_pasi"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/et_add_steps"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save_pasi"
+                    android:backgroundTint="@color/googleBtnBackground"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_salveaza"
+                    android:textSize="@dimen/dimen10sp"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="20dp"
+                    android:onClick="@{() -> viewModel.onSaveTextClicked(DailyActivitiesType.STEPS)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_steps"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_steps"
+                    />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_add_steps"
+                    android:background="@drawable/rounded_corners"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:gravity="top"
+                    android:hint="@string/et_hint_adauga_pasi"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_steps"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/ListItemTitleStyle"
+                android:id="@+id/tv_gooodbye"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/tv_distractie_placuta"
+                app:layout_constraintTop_toBottomOf="@+id/cl_steps"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/lottie_toothbrush"
+                />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_toothbrush"
+                android:layout_width="70dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_gooodbye"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_clipToCompositionBounds="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/toothbrush" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

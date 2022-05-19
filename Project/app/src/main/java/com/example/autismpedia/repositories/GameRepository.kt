@@ -1,6 +1,7 @@
 package com.example.autismpedia.repositories
 
 import android.net.Uri
+import com.example.autismpedia.enums.DailyActivitiesType
 import com.example.autismpedia.enums.GameType
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.Constants
@@ -64,6 +65,36 @@ class GameRepository {
         refStorage.delete()
 
         emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+
+    fun addDailyActivitiesTextToFirebase(game: Game, dailyActivitiesType: DailyActivitiesType) = flow<State<DocumentReference>> {
+        emit(State.loading())
+
+        when(dailyActivitiesType) {
+            DailyActivitiesType.NECESSARY_OBJECTS -> {
+                mGameCollection.collection(game.type.toString()).document(game.id.toString()).update(Constants.FIRESTORE_NECESSARY_OBJECTS_FILED, game.necessary_objects).await()
+            }
+            DailyActivitiesType.STEPS -> {
+                mGameCollection.collection(game.type.toString()).document(game.id.toString()).update(Constants.FIRESTORE_STEPS_FILED, game.steps).await()
+            }
+        }
+
+        emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+
+    fun getDailyActivitiesTextFromFirebase(game: Game) = flow<State<Game?>> {
+        emit(State.loading())
+
+        val snapshot = mGameCollection.collection(game.type.toString()).document(game.id.toString()).get().await()
+        val firestoreGame = snapshot.toObject(Game::class.java)
+
+        emit(State.success(firestoreGame))
     }.catch {
         emit(State.failed(it.message.toString()))
     }.flowOn(Dispatchers.IO)

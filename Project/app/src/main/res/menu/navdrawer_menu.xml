@@ -16,7 +16,7 @@
         android:title="Forum"/>
 
     <item
-        android:id="@+id/dailyFragment"
+        android:id="@+id/raportFragment"
         android:title="Raport zilnic"/>
 
     <item

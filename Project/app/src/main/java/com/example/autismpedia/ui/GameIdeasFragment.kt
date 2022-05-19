@@ -69,7 +69,14 @@ class GameIdeasFragment : Fragment() {
 
     private fun setupOnClickItem() {
         adapter = GameAdapter(GameListener { game ->
-            findNavController().navigate(GameIdeasFragmentDirections.actionGameIdeasFragmentToStoriesFragment(game))
+            when(args.gameType) {
+                GameType.STORY -> {
+                    findNavController().navigate(GameIdeasFragmentDirections.actionGameIdeasFragmentToStoriesFragment(game))
+                }
+                GameType.DAILY_ACTIVITIES -> {
+                    findNavController().navigate(GameIdeasFragmentDirections.actionGameIdeasFragmentToDailyActivitiesFragment(game))
+                }
+            }
         })
     }
 }
