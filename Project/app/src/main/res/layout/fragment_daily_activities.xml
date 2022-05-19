@@ -37,6 +37,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Spalat pe dinti" />
 
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/ListItemTitleStyle"
+                android:id="@+id/tv_hello"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/tv_hello"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/cl_obiecte_necesare"
+                />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_obiecte_necesare"
                 android:background="@drawable/rounded_corners_white"
@@ -45,7 +59,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="@dimen/default_margin"
                 android:layout_marginEnd="@dimen/default_margin"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_hello"
                 app:layout_constraintBottom_toTopOf="@id/cl_steps"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
