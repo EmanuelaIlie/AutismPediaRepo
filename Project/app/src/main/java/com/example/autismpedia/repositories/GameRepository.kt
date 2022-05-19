@@ -68,4 +68,27 @@ class GameRepository {
         emit(State.failed(it.message.toString()))
     }.flowOn(Dispatchers.IO)
 
+
+    fun addNecessaryObjectsToFirebase(game: Game) = flow<State<DocumentReference>> {
+        emit(State.loading())
+
+        mGameCollection.collection(game.type.toString()).document(game.id.toString()).update(Constants.FIRESTORE_NECESSARY_OBJECTS_FILED, game.necessary_objects).await()
+
+        emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+
+    fun getNecessaryObjectsToFirebase(game: Game) = flow<State<Game?>> {
+        emit(State.loading())
+
+        val snapshot = mGameCollection.collection(game.type.toString()).document(game.id.toString()).get().await()
+        val firestoreGame = snapshot.toObject(Game::class.java)
+
+        emit(State.success(firestoreGame))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
 }
