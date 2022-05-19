@@ -14,4 +14,7 @@
         \n\t\t Exista mai multi factori care pot influenta manifestarile din spectrul autist. Cel mai adesea, acestea sunt insotite de sensibilitati senzoriale si alte probleme medicale, cum ar fi tulburari gastro–intestinale, convulsii, epilepsie sau tulburari de somn, precum si provocari de sanatate mintala, cum ar fi anxietatea, depresia si problemele de deficit de atentie. Semnele de autism apar, de obicei, pana la varsta de 2–3 ani.
         \n\t\t Unele manifestari specifice pot sa fie sesizate chiar mai devreme si pot fi diagnosticate la 18 luni. Nu sunt rare cazurile in care simptomele apar chiar in primul an de viata. In fapt, se pare ca un numar destul de mic de copii, cu diferite forme de autism, se dezvolta cu adevarat normal in primul an de viata, pentru ca in jurul varstei de un an si jumatate-doi, sa intre intr-o perioada de regresie, care corespunde cu aparitia simptomelor de autism.
         \n\t\tCercetarile si practica arata ca identificarea cat mai timpurie a semnelor de autism duce la rezultate pozitive, daca sunt aplicate metode terapeutice eficiente.</string>
+    <string name="tv_obiecte_necesare">Obiecte necesare</string>
+    <string name="et_hint_adauga_introducere_si_obiectele_necesare">Adauga introducere si obiectele necesare...</string>
+    <string name="btn_salveaza">Salveaza</string>
 </resources>
