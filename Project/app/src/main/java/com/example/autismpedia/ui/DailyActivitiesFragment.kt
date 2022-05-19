@@ -41,27 +41,29 @@ class DailyActivitiesFragment : Fragment() {
 
     private fun setupFlows() {
         lifecycleScope.launch {
-            loadNecesarryItems()
+            loadDailyActivitiesText()
         }
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                viewModel.onSaveTextClicked.collect { dailyActivitiesType ->
-                   onAddTextToFirebase(dailyActivitiesType)
+                   onAddDailyActivitiesTextToFirebase(dailyActivitiesType)
                }
             }
         }
     }
 
-    private suspend fun loadNecesarryItems() {
-        viewModel.onGetNecessaryObjectsToFirebase(args.game).collect() { state ->
+    private suspend fun loadDailyActivitiesText() {
+        viewModel.onGetDailyActivitiesTextFromFirebase(args.game).collect() { state ->
             when(state) {
                 is State.Loading -> {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                 }
                 is State.Success -> {
-                    val string = state.data?.necessary_objects?.replace("_b", "\n")
-                    binding.etAddObiecteNecesare.setText(string)
+                    val stringNecessaryObjects = state.data?.necessary_objects?.replace("_b", "\n")
+                    val stringSteps = state.data?.steps?.replace("_b", "\n")
+                    binding.etAddObiecteNecesare.setText(stringNecessaryObjects)
+                    binding.etAddSteps.setText(stringSteps)
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
 
@@ -69,7 +71,7 @@ class DailyActivitiesFragment : Fragment() {
         }
     }
 
-    private suspend fun onAddTextToFirebase(dailyActivitiesType: DailyActivitiesType) {
+    private suspend fun onAddDailyActivitiesTextToFirebase(dailyActivitiesType: DailyActivitiesType) {
         val textNewline = when(dailyActivitiesType) {
             DailyActivitiesType.NECESSARY_OBJECTS -> {
                 binding.etAddObiecteNecesare.text.toString().replace("\n", "_b")
@@ -88,7 +90,7 @@ class DailyActivitiesFragment : Fragment() {
             }
         }
 
-        viewModel.onAddTextToFirebase(newGame, dailyActivitiesType).collect() { state ->
+        viewModel.onAddDailyActivitiesTextToFirebase(newGame, dailyActivitiesType).collect() { state ->
             when(state) {
                 is State.Loading -> {
                     Toast.makeText(requireContext(), "Saving...", Toast.LENGTH_SHORT).show()

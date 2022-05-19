@@ -20,7 +20,7 @@ class DailyActivitiesViewModel(private val repository: GameRepository) : ViewMod
         }
     }
 
-    fun onAddTextToFirebase(game: Game, dailyActivitiesType: DailyActivitiesType) = repository.addTextToFirebase(game, dailyActivitiesType)
+    fun onAddDailyActivitiesTextToFirebase(game: Game, dailyActivitiesType: DailyActivitiesType) = repository.addDailyActivitiesTextToFirebase(game, dailyActivitiesType)
 
-    fun onGetNecessaryObjectsToFirebase(game: Game) = repository.getNecessaryObjectsToFirebase(game)
+    fun onGetDailyActivitiesTextFromFirebase(game: Game) = repository.getDailyActivitiesTextFromFirebase(game)
 }

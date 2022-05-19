@@ -70,7 +70,7 @@ class GameRepository {
     }.flowOn(Dispatchers.IO)
 
 
-    fun addTextToFirebase(game: Game, dailyActivitiesType: DailyActivitiesType) = flow<State<DocumentReference>> {
+    fun addDailyActivitiesTextToFirebase(game: Game, dailyActivitiesType: DailyActivitiesType) = flow<State<DocumentReference>> {
         emit(State.loading())
 
         when(dailyActivitiesType) {
@@ -88,7 +88,7 @@ class GameRepository {
     }.flowOn(Dispatchers.IO)
 
 
-    fun getNecessaryObjectsToFirebase(game: Game) = flow<State<Game?>> {
+    fun getDailyActivitiesTextFromFirebase(game: Game) = flow<State<Game?>> {
         emit(State.loading())
 
         val snapshot = mGameCollection.collection(game.type.toString()).document(game.id.toString()).get().await()
