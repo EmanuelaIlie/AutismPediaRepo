@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="button_width">250dp</dimen>
-    <dimen name="width_iv_stories">300dp</dimen>
-    <dimen name="height_iv_stories">300dp</dimen>
+    <dimen name="width_iv_stories">270dp</dimen>
+    <dimen name="height_iv_stories">270dp</dimen>
 </resources>

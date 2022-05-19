@@ -24,15 +24,16 @@
             android:background="@color/main_green_background">
 
             <androidx.appcompat.widget.AppCompatTextView
+                style="@style/StoryTitleStyle"
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:text="@{game.title}"
-                android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Capra cu 3 iezi"/>
 
             <com.google.android.material.imageview.ShapeableImageView
                 style="@style/StoryImageStyle"
@@ -115,16 +116,16 @@
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 app:loadImageParam="@{game}"
                 app:imageNr="@{5}"
                 android:onClick="@{() -> viewModel.onAddImageClicked(game, 5)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_four"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:src="@drawable/ic_google"
                 tools:src="@drawable/ic_google"/>
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
