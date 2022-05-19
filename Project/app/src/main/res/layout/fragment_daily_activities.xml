@@ -16,12 +16,12 @@
     </data>
 
     <ScrollView
+        android:background="@color/main_green_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_parent"
-            android:background="@color/main_green_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -107,7 +107,7 @@
                 android:layout_marginStart="@dimen/default_margin"
                 android:layout_marginEnd="@dimen/default_margin"
                 app:layout_constraintTop_toBottomOf="@+id/cl_obiecte_necesare"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_gooodbye"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
@@ -156,9 +156,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/ListItemTitleStyle"
+                android:id="@+id/tv_gooodbye"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/tv_distractie_placuta"
+                app:layout_constraintTop_toBottomOf="@+id/cl_steps"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+           
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

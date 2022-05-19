@@ -19,4 +19,5 @@
     <string name="btn_salveaza">Salveaza</string>
     <string name="tv_pasi">Pasi</string>
     <string name="et_hint_adauga_pasi">Adauga pasi...</string>
+    <string name="tv_distractie_placuta">Distractie placuta!!</string>
 </resources>
