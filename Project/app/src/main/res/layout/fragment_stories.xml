@@ -34,7 +34,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
+                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_zero"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
@@ -48,7 +49,8 @@
                 android:src="@drawable/ic_google"
                 tools:src="@drawable/ic_google"/>
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
+                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_one"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
@@ -62,7 +64,8 @@
                 android:src="@drawable/ic_google"
                 tools:src="@drawable/ic_google"/>
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
+                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_two"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
@@ -76,7 +79,8 @@
                 android:src="@drawable/ic_google"
                 tools:src="@drawable/ic_google"/>
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
+                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_three"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
@@ -90,7 +94,8 @@
                 android:src="@drawable/ic_google"
                 tools:src="@drawable/ic_google"/>
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
+                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_four"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
@@ -104,7 +109,8 @@
                 android:src="@drawable/ic_google"
                 tools:src="@drawable/ic_google"/>
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <com.google.android.material.imageview.ShapeableImageView
+                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_five"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"

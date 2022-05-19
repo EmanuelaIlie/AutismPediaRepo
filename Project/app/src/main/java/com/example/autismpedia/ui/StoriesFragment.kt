@@ -99,6 +99,7 @@ class StoriesFragment : Fragment() {
                         4 -> binding.ivImageFour.setImageURI(fileUri)
                         5 -> binding.ivImageFive.setImageURI(fileUri)
                     }
+                    binding.game = newGame
                     removeImage(currentGame.images[currentImageNr])
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
@@ -117,10 +118,10 @@ class StoriesFragment : Fragment() {
         viewModel.removeImageFromFirebaseStorage(currentGame, fileName).collect() { state ->
             when(state) {
                 is State.Loading -> {
-                    Toast.makeText(requireContext(), "Attempting to remove image", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(requireContext(), "Attempting to remove image", Toast.LENGTH_LONG).show()
                 }
                 is State.Success -> {
-                    Toast.makeText(requireContext(), "Removed", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), "Removed", Toast.LENGTH_SHORT).show()
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
 
