@@ -7,26 +7,26 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.autismpedia.R
-import com.example.autismpedia.viewmodels.DailyViewModel
+import com.example.autismpedia.viewmodels.RaportViewModel
 
-class DailyFragment : Fragment() {
+class RaportFragment : Fragment() {
 
     companion object {
-        fun newInstance() = DailyFragment()
+        fun newInstance() = RaportFragment()
     }
 
-    private lateinit var viewModel: DailyViewModel
+    private lateinit var viewModel: RaportViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.daily_fragment, container, false)
+        return inflater.inflate(R.layout.raport_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DailyViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(RaportViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
