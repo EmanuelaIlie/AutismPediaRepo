@@ -13,4 +13,5 @@ data class Game (
         @SerialName("title") val title: String? = "",
         @SerialName("description") val description: String? = "",
         @SerialName("necessary_objects") val necessary_objects: String? = "",
+        @SerialName("steps") val steps: String? = "",
 ): java.io.Serializable

@@ -11,18 +11,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
-import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentDailyActivitiesBinding
-import com.example.autismpedia.databinding.GameIdeasFragmentBinding
-import com.example.autismpedia.models.Game
+import com.example.autismpedia.enums.DailyActivitiesType
 import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.DailyActivitiesViewModelFactory
-import com.example.autismpedia.viewmodelfactories.GameIdeasViewModelFactory
 import com.example.autismpedia.viewmodels.DailyActivitiesViewModel
-import com.example.autismpedia.viewmodels.GameIdeasViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class DailyActivitiesFragment : Fragment() {
 
@@ -52,8 +46,8 @@ class DailyActivitiesFragment : Fragment() {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-               viewModel.onSaveNecessaryObjectsClicked.collect {
-                   onAddNecessaryObjectsToFirebase()
+               viewModel.onSaveTextClicked.collect { dailyActivitiesType ->
+                   onAddTextToFirebase(dailyActivitiesType)
                }
             }
         }
@@ -75,10 +69,26 @@ class DailyActivitiesFragment : Fragment() {
         }
     }
 
-    private suspend fun onAddNecessaryObjectsToFirebase() {
-        val textNewline = binding.etAddObiecteNecesare.text.toString().replace("\n", "_b")
-        val newGame = args.game.copy(necessary_objects = textNewline)
-        viewModel.onAddNecessaryObjectsToFirebase(newGame).collect() { state ->
+    private suspend fun onAddTextToFirebase(dailyActivitiesType: DailyActivitiesType) {
+        val textNewline = when(dailyActivitiesType) {
+            DailyActivitiesType.NECESSARY_OBJECTS -> {
+                binding.etAddObiecteNecesare.text.toString().replace("\n", "_b")
+            }
+            DailyActivitiesType.STEPS -> {
+                binding.etAddSteps.text.toString().replace("\n", "_b")
+            }
+        }
+
+        val newGame = when(dailyActivitiesType) {
+            DailyActivitiesType.NECESSARY_OBJECTS -> {
+                args.game.copy(necessary_objects = textNewline)
+            }
+            DailyActivitiesType.STEPS -> {
+                args.game.copy(steps = textNewline)
+            }
+        }
+
+        viewModel.onAddTextToFirebase(newGame, dailyActivitiesType).collect() { state ->
             when(state) {
                 is State.Loading -> {
                     Toast.makeText(requireContext(), "Saving...", Toast.LENGTH_SHORT).show()

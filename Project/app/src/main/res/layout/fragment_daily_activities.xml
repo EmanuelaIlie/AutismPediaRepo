@@ -13,6 +13,8 @@
         <variable
             name="game"
             type="com.example.autismpedia.models.Game" />
+
+        <import type="com.example.autismpedia.enums.DailyActivitiesType"/>
     </data>
 
     <ScrollView
@@ -86,7 +88,7 @@
                     android:textSize="@dimen/dimen10sp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="20dp"
-                    android:onClick="@{() -> viewModel.onSaveNecessaryObjectsClicked()}"
+                    android:onClick="@{() -> viewModel.onSaveTextClicked(DailyActivitiesType.NECESSARY_OBJECTS)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_obiecte_necesare"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_obiecte_necesare"
@@ -149,6 +151,7 @@
                     android:textSize="@dimen/dimen10sp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="20dp"
+                    android:onClick="@{() -> viewModel.onSaveTextClicked(DailyActivitiesType.STEPS)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_steps"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_steps"
