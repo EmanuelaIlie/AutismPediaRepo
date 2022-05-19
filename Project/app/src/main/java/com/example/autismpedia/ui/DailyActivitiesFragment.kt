@@ -1,9 +1,11 @@
 package com.example.autismpedia.ui
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -35,6 +37,7 @@ class DailyActivitiesFragment : Fragment() {
         binding.viewModel = viewModel
         binding.game = args.game
         setupFlows()
+        makeEditTextScrollable()
 
         return binding.root
     }
@@ -104,5 +107,17 @@ class DailyActivitiesFragment : Fragment() {
             }
         }
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun makeEditTextScrollable() {
+        binding.etAddObiecteNecesare.setOnTouchListener { view, event ->
+            view.parent.requestDisallowInterceptTouchEvent(true)
+            if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                view.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            return@setOnTouchListener false
+        }
+    }
+
 
 }

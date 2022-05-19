@@ -96,6 +96,9 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/et_add_obiecte_necesare"
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
                     android:background="@drawable/rounded_corners"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
