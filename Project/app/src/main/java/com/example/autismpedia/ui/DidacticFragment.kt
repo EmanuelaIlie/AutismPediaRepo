@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.autismpedia.databinding.FragmentDidacticBinding
@@ -35,8 +36,16 @@ class DidacticFragment : Fragment() {
         binding.viewModel = viewModel
         binding.game = args.game
         setupFlows()
+        setupObservers()
 
         return binding.root
+    }
+
+    private fun setupObservers() {
+        viewModel.onNextMinigame.observe(viewLifecycleOwner, Observer {
+            indexOfQuestion++
+            setupFlows()
+        })
     }
 
     private fun setupFlows() {
@@ -52,7 +61,9 @@ class DidacticFragment : Fragment() {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                 }
                 is State.Success -> {
-                    binding.miniGame = state.data[indexOfQuestion]
+                    if(indexOfQuestion < state.data.size) {
+                        binding.miniGame = state.data[indexOfQuestion]
+                    }
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
 
