@@ -99,4 +99,15 @@ class GameRepository {
         emit(State.failed(it.message.toString()))
     }.flowOn(Dispatchers.IO)
 
+
+    fun getDidacticGameFromFirebase(game: Game) = flow<State<Game?>> {
+        emit(State.loading())
+
+        val snapshot = mGameCollection.collection(game.type.toString()).document(game.id.toString()).get().await()
+        val firestoreGame = snapshot.toObject(Game::class.java)
+
+        emit(State.success(firestoreGame))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
 }

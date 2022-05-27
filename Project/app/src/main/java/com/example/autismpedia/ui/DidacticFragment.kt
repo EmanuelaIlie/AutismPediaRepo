@@ -30,6 +30,7 @@ class DidacticFragment : Fragment() {
         binding = FragmentDidacticBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        binding.game = args.game
 
         return binding.root
     }
