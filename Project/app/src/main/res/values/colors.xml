@@ -16,5 +16,6 @@
     <color name="HomeBackground">#f0efeb</color>
     <color name="GameTypeBackground">#f8edeb</color>
     <color name="color_list_item">#f1faee</color>
+    <color name="color_green">#4B914E</color>
 
 </resources>

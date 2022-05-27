@@ -1,5 +1,7 @@
 package com.example.autismpedia.ui
 
+import android.graphics.drawable.Drawable
+import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentDidacticBinding
 import com.example.autismpedia.enums.GameType
 import com.example.autismpedia.models.Game
@@ -28,6 +34,7 @@ class DidacticFragment : Fragment() {
     private var answeredCorrectly = false
     private var correctAnswerIndex = 0
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +51,7 @@ class DidacticFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun setupObservers() {
         viewModel.onNextMinigame.observe(viewLifecycleOwner, Observer {
             answeredCorrectly = false
@@ -57,6 +65,26 @@ class DidacticFragment : Fragment() {
             if(imageIndex == correctAnswerIndex) {
                 answeredCorrectly = true
                 binding.btnDidacticNext.isEnabled = true
+            }
+            when(imageIndex) {
+                1 -> {
+                    binding.ivAnswerOne.strokeWidth = 17F
+                    binding.ivAnswerOne.strokeColor = resources.getColorStateList(R.color.color_green, null)
+                    binding.ivAnswerTwo.strokeWidth = 0F
+                    binding.ivAnswerThree.strokeWidth = 0F
+                }
+                2 -> {
+                    binding.ivAnswerOne.strokeWidth = 0F
+                    binding.ivAnswerTwo.strokeWidth = 17F
+                    binding.ivAnswerTwo.strokeColor = resources.getColorStateList(R.color.color_green, null)
+                    binding.ivAnswerThree.strokeWidth = 0F
+                }
+                3 -> {
+                    binding.ivAnswerOne.strokeWidth = 0F
+                    binding.ivAnswerTwo.strokeWidth = 0F
+                    binding.ivAnswerThree.strokeWidth = 17F
+                    binding.ivAnswerThree.strokeColor = resources.getColorStateList(R.color.color_green, null)
+                }
             }
         })
     }
