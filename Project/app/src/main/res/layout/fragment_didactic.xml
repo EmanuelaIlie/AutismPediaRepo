@@ -58,6 +58,7 @@
             android:src="@drawable/ic_google"
             app:loadDidacticImage="@{miniGame}"
             app:imageNr="@{1}"
+            android:onClick="@{() -> viewModel.onAnswerImageClicked(1)}"
             app:layout_constraintStart_toStartOf="@+id/iv_question"
             app:layout_constraintEnd_toEndOf="@+id/iv_question"
             app:layout_constraintTop_toBottomOf="@+id/iv_question"
@@ -74,6 +75,7 @@
             android:layout_marginStart="50dp"
             app:loadDidacticImage="@{miniGame}"
             app:imageNr="@{2}"
+            android:onClick="@{() -> viewModel.onAnswerImageClicked(2)}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_answer_one"
             tools:src="@drawable/ic_google"/>
@@ -88,12 +90,13 @@
             android:layout_marginEnd="50dp"
             app:loadDidacticImage="@{miniGame}"
             app:imageNr="@{3}"
+            android:onClick="@{() -> viewModel.onAnswerImageClicked(3)}"
             app:layout_constraintTop_toBottomOf="@+id/iv_answer_one"
             app:layout_constraintEnd_toEndOf="parent"
             tools:src="@drawable/ic_google"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_stories"
+            android:id="@+id/btn_didactic_next"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -106,6 +109,7 @@
             app:cornerRadius="10dp"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
+            android:enabled="false"
             android:onClick="@{() -> viewModel.onNextMinigame()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

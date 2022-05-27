@@ -17,6 +17,7 @@ import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.DidacticViewModelFactory
 import com.example.autismpedia.viewmodels.DidacticViewModel
 import kotlinx.coroutines.launch
+import kotlin.math.min
 
 class DidacticFragment : Fragment() {
 
@@ -24,6 +25,8 @@ class DidacticFragment : Fragment() {
     private lateinit var binding: FragmentDidacticBinding
     private val args: DidacticFragmentArgs by navArgs()
     private var indexOfQuestion = 0
+    private var answeredCorrectly = false
+    private var correctAnswerIndex = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +46,18 @@ class DidacticFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.onNextMinigame.observe(viewLifecycleOwner, Observer {
+            answeredCorrectly = false
+            correctAnswerIndex = 0
+            indexOfQuestion = 0
+            binding.btnDidacticNext.isEnabled = false
             indexOfQuestion++
             setupFlows()
+        })
+        viewModel.onAnswerImageClicked.observe(viewLifecycleOwner, Observer { imageIndex ->
+            if(imageIndex == correctAnswerIndex) {
+                answeredCorrectly = true
+                binding.btnDidacticNext.isEnabled = true
+            }
         })
     }
 
@@ -62,7 +75,11 @@ class DidacticFragment : Fragment() {
                 }
                 is State.Success -> {
                     if(indexOfQuestion < state.data.size) {
-                        binding.miniGame = state.data[indexOfQuestion]
+                        val minigame = state.data[indexOfQuestion]
+                        if(minigame?.right_answer != null) {
+                            correctAnswerIndex = minigame.right_answer
+                            binding.miniGame = minigame
+                        }
                     }
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()

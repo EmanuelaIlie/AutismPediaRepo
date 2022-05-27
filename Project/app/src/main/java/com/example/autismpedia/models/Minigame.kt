@@ -9,5 +9,5 @@ data class Minigame (
     @DocumentId
     @SerialName("id") val id: String? = "",
     @SerialName("images") val images: MutableList<String> = mutableListOf(""),
-    @SerialName("right_answer") val type: Int? = 1,
+    @SerialName("right_answer") val right_answer: Int? = 1,
 ): java.io.Serializable
