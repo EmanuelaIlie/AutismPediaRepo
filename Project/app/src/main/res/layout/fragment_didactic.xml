@@ -11,6 +11,9 @@
     <variable
         name="game"
         type="com.example.autismpedia.models.Game" />
+    <variable
+        name="miniGame"
+        type="com.example.autismpedia.models.Minigame" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,6 +41,8 @@
             android:layout_height="150dp"
             android:layout_marginTop="30dp"
             android:src="@drawable/ic_google"
+            app:loadDidacticImage="@{miniGame}"
+            app:imageNr="@{0}"
             app:layout_constraintStart_toStartOf="@+id/tv_didactic_title"
             app:layout_constraintEnd_toEndOf="@+id/tv_didactic_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_didactic_title"
@@ -51,6 +56,8 @@
             android:layout_height="@dimen/dimen_question_image"
             android:layout_marginTop="30dp"
             android:src="@drawable/ic_google"
+            app:loadDidacticImage="@{miniGame}"
+            app:imageNr="@{1}"
             app:layout_constraintStart_toStartOf="@+id/iv_question"
             app:layout_constraintEnd_toEndOf="@+id/iv_question"
             app:layout_constraintTop_toBottomOf="@+id/iv_question"
@@ -65,6 +72,8 @@
             android:layout_marginTop="30dp"
             android:src="@drawable/ic_google"
             android:layout_marginStart="50dp"
+            app:loadDidacticImage="@{miniGame}"
+            app:imageNr="@{2}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_answer_one"
             tools:src="@drawable/ic_google"/>
@@ -77,6 +86,8 @@
             android:layout_marginTop="30dp"
             android:src="@drawable/ic_google"
             android:layout_marginEnd="50dp"
+            app:loadDidacticImage="@{miniGame}"
+            app:imageNr="@{3}"
             app:layout_constraintTop_toBottomOf="@+id/iv_answer_one"
             app:layout_constraintEnd_toEndOf="parent"
             tools:src="@drawable/ic_google"/>

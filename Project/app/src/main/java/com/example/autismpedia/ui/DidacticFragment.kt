@@ -6,20 +6,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentDidacticBinding
-import com.example.autismpedia.databinding.GameIdeasFragmentBinding
+import com.example.autismpedia.enums.GameType
+import com.example.autismpedia.models.Game
+import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.DidacticViewModelFactory
-import com.example.autismpedia.viewmodelfactories.GameIdeasViewModelFactory
 import com.example.autismpedia.viewmodels.DidacticViewModel
-import com.example.autismpedia.viewmodels.GameIdeasViewModel
+import kotlinx.coroutines.launch
 
 class DidacticFragment : Fragment() {
 
     private lateinit var viewModel: DidacticViewModel
     private lateinit var binding: FragmentDidacticBinding
     private val args: DidacticFragmentArgs by navArgs()
+    private var indexOfQuestion = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +34,29 @@ class DidacticFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.game = args.game
+        setupFlows()
 
         return binding.root
+    }
+
+    private fun setupFlows() {
+        lifecycleScope.launch {
+            loadMiniGames(args.game)
+        }
+    }
+
+    private suspend fun loadMiniGames(game: Game) {
+        viewModel.getAllMinigames(game).collect() { state ->
+            when(state) {
+                is State.Loading -> {
+                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                }
+                is State.Success -> {
+                    binding.miniGame = state.data[indexOfQuestion]
+                }
+                is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
+
+            }
+        }
     }
 }
