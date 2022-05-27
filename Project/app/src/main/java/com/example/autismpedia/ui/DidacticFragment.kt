@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentDidacticBinding
 import com.example.autismpedia.databinding.GameIdeasFragmentBinding
@@ -18,6 +19,7 @@ class DidacticFragment : Fragment() {
 
     private lateinit var viewModel: DidacticViewModel
     private lateinit var binding: FragmentDidacticBinding
+    private val args: DidacticFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

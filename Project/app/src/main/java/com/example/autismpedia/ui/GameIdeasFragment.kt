@@ -76,6 +76,9 @@ class GameIdeasFragment : Fragment() {
                 GameType.DAILY_ACTIVITIES -> {
                     findNavController().navigate(GameIdeasFragmentDirections.actionGameIdeasFragmentToDailyActivitiesFragment(game))
                 }
+                GameType.DIDACTIC -> {
+                    findNavController().navigate(GameIdeasFragmentDirections.actionGameIdeasFragmentToDidacticFragment(game))
+                }
             }
         })
     }
