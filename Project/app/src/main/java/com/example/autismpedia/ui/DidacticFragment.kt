@@ -68,18 +68,21 @@ class DidacticFragment : Fragment() {
             }
             when(imageIndex) {
                 1 -> {
+                    binding.btnDidacticNext.isEnabled = correctAnswerIndex == 1
                     binding.ivAnswerOne.strokeWidth = 17F
                     binding.ivAnswerOne.strokeColor = resources.getColorStateList(R.color.color_green, null)
                     binding.ivAnswerTwo.strokeWidth = 0F
                     binding.ivAnswerThree.strokeWidth = 0F
                 }
                 2 -> {
+                    binding.btnDidacticNext.isEnabled = correctAnswerIndex == 2
                     binding.ivAnswerOne.strokeWidth = 0F
                     binding.ivAnswerTwo.strokeWidth = 17F
                     binding.ivAnswerTwo.strokeColor = resources.getColorStateList(R.color.color_green, null)
                     binding.ivAnswerThree.strokeWidth = 0F
                 }
                 3 -> {
+                    binding.btnDidacticNext.isEnabled = correctAnswerIndex == 3
                     binding.ivAnswerOne.strokeWidth = 0F
                     binding.ivAnswerTwo.strokeWidth = 0F
                     binding.ivAnswerThree.strokeWidth = 17F
