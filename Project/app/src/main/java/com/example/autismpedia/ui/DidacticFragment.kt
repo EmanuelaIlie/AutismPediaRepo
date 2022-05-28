@@ -58,6 +58,9 @@ class DidacticFragment : Fragment() {
             correctAnswerIndex = 0
             indexOfQuestion = 0
             binding.btnDidacticNext.isEnabled = false
+            binding.ivAnswerOne.strokeColor = resources.getColorStateList(R.color.color_full_transparent, null)
+            binding.ivAnswerTwo.strokeColor = resources.getColorStateList(R.color.color_full_transparent, null)
+            binding.ivAnswerThree.strokeColor = resources.getColorStateList(R.color.color_full_transparent, null)
             indexOfQuestion++
             setupFlows()
         })
@@ -69,24 +72,36 @@ class DidacticFragment : Fragment() {
             when(imageIndex) {
                 1 -> {
                     binding.btnDidacticNext.isEnabled = correctAnswerIndex == 1
+                    if(correctAnswerIndex == 1) {
+                        binding.ivAnswerOne.strokeColor = resources.getColorStateList(R.color.color_green, null)
+                    } else {
+                        binding.ivAnswerOne.strokeColor = resources.getColorStateList(R.color.color_red, null)
+                    }
                     binding.ivAnswerOne.strokeWidth = 17F
-                    binding.ivAnswerOne.strokeColor = resources.getColorStateList(R.color.color_green, null)
                     binding.ivAnswerTwo.strokeWidth = 0F
                     binding.ivAnswerThree.strokeWidth = 0F
                 }
                 2 -> {
+                    if(correctAnswerIndex == 2) {
+                        binding.ivAnswerTwo.strokeColor = resources.getColorStateList(R.color.color_green, null)
+                    } else {
+                        binding.ivAnswerTwo.strokeColor = resources.getColorStateList(R.color.color_red, null)
+                    }
                     binding.btnDidacticNext.isEnabled = correctAnswerIndex == 2
                     binding.ivAnswerOne.strokeWidth = 0F
                     binding.ivAnswerTwo.strokeWidth = 17F
-                    binding.ivAnswerTwo.strokeColor = resources.getColorStateList(R.color.color_green, null)
                     binding.ivAnswerThree.strokeWidth = 0F
                 }
                 3 -> {
+                    if(correctAnswerIndex == 3) {
+                        binding.ivAnswerThree.strokeColor = resources.getColorStateList(R.color.color_green, null)
+                    } else {
+                        binding.ivAnswerThree.strokeColor = resources.getColorStateList(R.color.color_red, null)
+                    }
                     binding.btnDidacticNext.isEnabled = correctAnswerIndex == 3
                     binding.ivAnswerOne.strokeWidth = 0F
                     binding.ivAnswerTwo.strokeWidth = 0F
                     binding.ivAnswerThree.strokeWidth = 17F
-                    binding.ivAnswerThree.strokeColor = resources.getColorStateList(R.color.color_green, null)
                 }
             }
         })
