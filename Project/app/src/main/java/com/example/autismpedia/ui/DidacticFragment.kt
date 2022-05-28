@@ -127,6 +127,9 @@ class DidacticFragment : Fragment() {
                             binding.miniGame = minigame
                         }
                     }
+                    if(indexOfQuestion >= state.data.size - 1) {
+                        binding.btnDidacticNext.visibility = View.INVISIBLE
+                    }
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
 
