@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.DidacticFragment">
+
+    <data>
+    <variable
+        name="viewModel"
+        type="com.example.autismpedia.viewmodels.DidacticViewModel" />
+    <variable
+        name="game"
+        type="com.example.autismpedia.models.Game" />
+    <variable
+        name="miniGame"
+        type="com.example.autismpedia.models.Minigame" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/main_green_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/StoryTitleStyle"
+            android:id="@+id/tv_didactic_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@{@string/text_question_title(game.question_title)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title"
+            />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            style="@style/StoryImageStyle"
+            android:id="@+id/iv_question"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_google"
+            app:loadDidacticImage="@{miniGame}"
+            app:imageNr="@{0}"
+            app:layout_constraintStart_toStartOf="@+id/tv_didactic_title"
+            app:layout_constraintEnd_toEndOf="@+id/tv_didactic_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_didactic_title"
+            tools:src="@drawable/ic_google"/>
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            style="@style/StoryImageStyle"
+            android:id="@+id/iv_answer_one"
+            android:layout_width="@dimen/dimen_question_image"
+            android:layout_height="@dimen/dimen_question_image"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_google"
+            app:loadDidacticImage="@{miniGame}"
+            app:imageNr="@{1}"
+            android:padding="3dp"
+            android:onClick="@{() -> viewModel.onAnswerImageClicked(1)}"
+            app:layout_constraintStart_toStartOf="@+id/iv_question"
+            app:layout_constraintEnd_toEndOf="@+id/iv_question"
+            app:layout_constraintTop_toBottomOf="@+id/iv_question"
+            tools:src="@drawable/ic_google"/>
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            style="@style/StoryImageStyle"
+            android:id="@+id/iv_answer_two"
+            android:layout_width="@dimen/dimen_question_image"
+            android:layout_height="@dimen/dimen_question_image"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_google"
+            android:layout_marginStart="50dp"
+            android:padding="3dp"
+            app:loadDidacticImage="@{miniGame}"
+            app:imageNr="@{2}"
+            android:onClick="@{() -> viewModel.onAnswerImageClicked(2)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_answer_one"
+            tools:src="@drawable/ic_google"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            style="@style/StoryImageStyle"
+            android:id="@+id/iv_answer_three"
+            android:layout_width="@dimen/dimen_question_image"
+            android:layout_height="@dimen/dimen_question_image"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_google"
+            android:layout_marginEnd="50dp"
+            app:loadDidacticImage="@{miniGame}"
+            app:imageNr="@{3}"
+            android:padding="3dp"
+            android:onClick="@{() -> viewModel.onAnswerImageClicked(3)}"
+            app:layout_constraintTop_toBottomOf="@+id/iv_answer_one"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/ic_google"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_didactic_next"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/btnBackgroundGreen"
+            android:fontFamily="@font/acme"
+            android:text="@string/next"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:cornerRadius="10dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:enabled="false"
+            android:onClick="@{() -> viewModel.onNextMinigame()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_answer_two"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -21,4 +21,6 @@
     <string name="et_hint_adauga_pasi">Adauga pasi...</string>
     <string name="tv_distractie_placuta">Distractie placuta!!</string>
     <string name="tv_hello">Hello</string>
+    <string name="next">NEXT</string>
+    <string name="text_question_title">%1$s \t</string>
 </resources>

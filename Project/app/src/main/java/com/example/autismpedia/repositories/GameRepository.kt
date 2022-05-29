@@ -4,6 +4,7 @@ import android.net.Uri
 import com.example.autismpedia.enums.DailyActivitiesType
 import com.example.autismpedia.enums.GameType
 import com.example.autismpedia.models.Game
+import com.example.autismpedia.models.Minigame
 import com.example.autismpedia.utils.Constants
 import com.example.autismpedia.utils.State
 import com.google.firebase.firestore.DocumentReference
@@ -99,4 +100,15 @@ class GameRepository {
         emit(State.failed(it.message.toString()))
     }.flowOn(Dispatchers.IO)
 
+
+    fun getDidacticMinigamesFromFirebase(game: Game) = flow<State<List<Minigame?>>> {
+        emit(State.loading())
+
+        val snapshot = mGameCollection.collection(game.type.toString()).document(game.id.toString()).collection(Constants.FIRESTORE_MINIGAMES_COLLECTION).get().await()
+        val miniGames = snapshot.toObjects(Minigame::class.java)
+
+        emit(State.success(miniGames))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
 }
