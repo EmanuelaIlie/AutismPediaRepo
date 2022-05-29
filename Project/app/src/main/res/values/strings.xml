@@ -1,19 +1,6 @@
 <resources>
     <string name="app_name">AutismPedia</string>
     <string name="btn_sign_in_with_google">Autentificare cu Google</string>
-
-    <string name="infoAutism">\n\n\t\t\t\t\t\t\t\t\t \t\t\t\t\t\t\t\t\tAutismul\n\n\t \t Tulburarea de spectru autist (TSA) este o manifestare complexa, asociata cu diferite simptome, care includ deficit persistent in comunicarea si interactiunea sociala, in contexte multiple, si modele de comportament restrictionate si repetitive.
-        \n\t\t    Autismul nu este efectul educatiei, nu este contagios, nu apare din cauze externe (alimentatie, vaccinuri), este prezent din momentul nasterii, dar se manifesta incepand cu primii ani de viata, prin semne caracteristice, si nu este un simplu refuz de a comunica.
-        \n\t\t    Creierul persoanelor care au tulburari din spectrul autist functioneaza altfel.
-        \n\t\t      Autismul, in toate formele lui, nu este o boala a omului modern, avand o rata de incidenta relativ constanta de–a lungul timpului, dar cu o reala tendinta de manifestare mai frecventa in ultimii 20 de ani. Multor parinti li se spune ca autismul este o tulburare de comportament.
-        \n\t\t      Copiii cu autism afiseaza comportamente confuze si, uneori, perturbatoare.
-        \n\t\t Practica medicala si cercetarea au schimbat modul de abordare, astfel ca autismul este considerat o manifestare neuroatipica, o neurodiversitate cu efecte comportamentale.
-        \n \t\t Nu exista o singura forma de autism, ci sunt multe subtipuri, influentate de factori genetici si de mediu.
-        \n\t\t Persoanele cu autism au un set distinct de puncte forte si provocari, iar modalitatile prin care acestea invata, gandesc si rezolva probleme, la modul general, pot varia, de la situatii in care sunt foarte abile pana la incapacitati severe.
-        \n\t\t Unele persoane cu TSA pot avea nevoie in permanenta de sprijin, in timp ce altele se pot descurca independent.
-        \n\t\t Exista mai multi factori care pot influenta manifestarile din spectrul autist. Cel mai adesea, acestea sunt insotite de sensibilitati senzoriale si alte probleme medicale, cum ar fi tulburari gastro–intestinale, convulsii, epilepsie sau tulburari de somn, precum si provocari de sanatate mintala, cum ar fi anxietatea, depresia si problemele de deficit de atentie. Semnele de autism apar, de obicei, pana la varsta de 2–3 ani.
-        \n\t\t Unele manifestari specifice pot sa fie sesizate chiar mai devreme si pot fi diagnosticate la 18 luni. Nu sunt rare cazurile in care simptomele apar chiar in primul an de viata. In fapt, se pare ca un numar destul de mic de copii, cu diferite forme de autism, se dezvolta cu adevarat normal in primul an de viata, pentru ca in jurul varstei de un an si jumatate-doi, sa intre intr-o perioada de regresie, care corespunde cu aparitia simptomelor de autism.
-        \n\t\tCercetarile si practica arata ca identificarea cat mai timpurie a semnelor de autism duce la rezultate pozitive, daca sunt aplicate metode terapeutice eficiente.</string>
     <string name="tv_obiecte_necesare">Obiecte necesare</string>
     <string name="et_hint_adauga_introducere_si_obiectele_necesare">Adauga introducere si obiectele necesare...</string>
     <string name="btn_salveaza">Salveaza</string>
@@ -23,4 +10,8 @@
     <string name="tv_hello">Hello</string>
     <string name="next">NEXT</string>
     <string name="text_question_title">%1$s \t</string>
+    <string name="text_info_title">Autismul</string>
+    <string name="text_info_first">\t \t Tulburarea de spectru autist (TSA) este o manifestare complexă, asociată cu diferite simptome, care includ deficit persistent în comunicarea și interacțiunea socială, în contexte multiple, și modele de comporta- ment restricționate și repetitive.</string>
+    <string name="text_info_second">\t \t Se poate afirma cu certitudine că nu există o singură cauză care duce la tulburări de spectru autist. Autismul se dezvoltă dintr-o combinație de influențe genetice și negenetice, legate de mediu.</string>
+
 </resources>

@@ -27,4 +27,11 @@
         <item name="android:padding">5dp</item>
         <item name="android:gravity">center</item>
     </style>
+    <style name="InfoSubtitleStyle" parent="">
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/andika_new_basic</item>
+        <item name="android:padding">15dp</item>
+    </style>
 </resources>

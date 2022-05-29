@@ -6,21 +6,96 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/main_green_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/main_green_background">
+            >
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:text="@string/infoAutism"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_info_title"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:src="@drawable/iv_info_title"
+                android:layout_marginTop="5dp"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_info_subtitle_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:text="Ce este autismul?"
+                style="@style/InfoSubtitleStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_info_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_info_first"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="25dp"
+                android:fontFamily="@font/andika_new_basic"
+                android:text="@string/text_info_first"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_info_subtitle_first" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_info_first"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/iv_info_first"
+                app:layout_constraintEnd_toEndOf="@+id/tv_info_first"
+                app:layout_constraintHorizontal_bias="0.3"
+                app:layout_constraintStart_toStartOf="@+id/tv_info_first"
+                app:layout_constraintTop_toBottomOf="@+id/tv_info_first" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_info_subtitle_second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="Cauzele autismului"
+                style="@style/InfoSubtitleStyle"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_info_first"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_info_second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:text="@string/text_info_second"
+                android:fontFamily="@font/andika_new_basic"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_info_subtitle_second"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
