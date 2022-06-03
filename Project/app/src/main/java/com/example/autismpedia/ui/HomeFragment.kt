@@ -32,9 +32,7 @@ class HomeFragment : Fragment() {
         prefs = Prefs(requireContext())
 
         // TODO vlad: remove
-        println("vlad ${prefs.adminEnabled}")
-        prefs.adminEnabled = true
-        println("vlad ${prefs.adminEnabled}")
+        prefs.adminEnabled = false
 
         return binding.root
     }
