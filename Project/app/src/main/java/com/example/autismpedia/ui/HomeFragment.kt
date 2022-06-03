@@ -2,6 +2,7 @@ package com.example.autismpedia.ui
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -26,16 +27,8 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         setHasOptionsMenu(true)
-        setupObservers()
 
         return binding.root
-    }
-
-    private fun setupObservers() {
-        viewModel.onLogoutClicked.observe(viewLifecycleOwner, Observer {
-            FirebaseAuth.getInstance().signOut()
-            requireActivity().finish()
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -48,6 +41,5 @@ class HomeFragment : Fragment() {
             .onNavDestinationSelected(item,requireView().findNavController())
                 || super.onOptionsItemSelected(item)
     }
-
 
 }

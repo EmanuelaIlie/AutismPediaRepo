@@ -23,4 +23,9 @@
         android:id="@+id/mapFragment"
         android:title="Harta"/>
 
+    <item
+        android:id="@+id/menu_logout"
+        android:title="Deconectare"/>
+
+
 </menu>
