@@ -10,6 +10,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.autismpedia.databinding.ActivityMainBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -17,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +39,12 @@ class MainActivity : AppCompatActivity() {
     private fun setupMenuClickListeners() {
         binding.navView.setNavigationItemSelectedListener { item ->
             if (item.itemId == R.id.menu_logout) {
+                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id)) // it is generated
+                    .requestEmail()
+                    .build()
+                googleSignInClient = GoogleSignIn.getClient(this, gso)
+                googleSignInClient.signOut()
                 FirebaseAuth.getInstance().signOut()
                 val intent = Intent(this, SignInActivity::class.java)
                 startActivity(intent)
