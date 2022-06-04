@@ -10,12 +10,11 @@ import com.example.autismpedia.repositories.GameRepository
 import com.example.autismpedia.utils.Prefs
 import com.example.autismpedia.viewmodels.StoriesViewModel
 
-class StoriesViewModelFactory(requireContext: Context) : ViewModelProvider.Factory {
-    private val context: Context = requireContext
+class StoriesViewModelFactory() : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(StoriesViewModel::class.java)) {
-            return StoriesViewModel(repository = GameRepository(), context = context) as T
+            return StoriesViewModel(repository = GameRepository()) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

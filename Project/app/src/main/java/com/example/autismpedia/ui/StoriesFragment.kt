@@ -34,7 +34,7 @@ class StoriesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModelFactory = StoriesViewModelFactory(requireContext())
+        val viewModelFactory = StoriesViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory)[StoriesViewModel::class.java]
         binding = FragmentStoriesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
