@@ -6,4 +6,5 @@ object Constants {
     const val FIRESTORE_STEPS_FILED = "steps"
     const val FIRESTORE_MINIGAMES_COLLECTION = "minigames"
     const val FIRESTORE_DIDACTIC_COLLECTION = "DIDACTIC"
+    const val ADMIN_ENABLED = "ADMIN_ENABLED"
 }

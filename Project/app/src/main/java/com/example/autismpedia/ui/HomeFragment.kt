@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.autismpedia.R
 import com.example.autismpedia.databinding.HomeFragmentBinding
+import com.example.autismpedia.utils.Prefs
 import com.example.autismpedia.viewmodels.HomeViewModel
 import com.google.firebase.auth.FirebaseAuth
 
@@ -17,6 +18,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: HomeFragmentBinding
+    private lateinit var prefs: Prefs
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +29,10 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         setHasOptionsMenu(true)
+        prefs = Prefs(requireContext())
+
+        // TODO vlad: remove
+        prefs.adminEnabled = false
 
         return binding.root
     }

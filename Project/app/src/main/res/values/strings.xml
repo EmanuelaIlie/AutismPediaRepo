@@ -18,5 +18,6 @@
     <string name="text_info_sixth">\t\tFiecare copil cu tulburare de spectru autist are un amestec unic de simptome si un anumit grad de severitate. Simptomele pot varia de la ușoare la severe și adesea se modifică de-a lungul timpului și pot fi mascate de mecanisme compensatorii complexe.</string>
     <string name="text_info_seventh">\t\tDiagnosticul precoce cu inițierea imediată a terapiei sunt importante pentru ameliorarea simptomelor și îmbunatățirea calității vieții copiilor cu autism și a familiilor acestora. Nu exista o analiza care sa diagnosticheze boala. Este diagnosticată exclusiv pe baza observării modului în care copilul vorbește, interacționeaza și acționează în comparație cu alți copii de aceeași vârstă. Medicul psihiatru pediatru diagnostichează autismul urmărind copilul și punând întrebări părinților.\n\t\tCel mai frecvent, autismul tipic este diagnosticat în jurul vârstei de 3 ani, datorită întârzierii limbajului sau dificultăților de integrare a copilului la gradiniță.\n\t\tAcademia Americana de Pediatrie recomandă screeningul pentru tulburări de dezvoltare tuturor copiilor cu vârsta între 18–24 luni.</string>
     <string name="deconectare">Deconectare</string>
+    <string name="preference_file_key">com.example.autismpedia.PREFERENCE_FILE_KEY</string>
 
 </resources>

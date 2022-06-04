@@ -1,12 +1,18 @@
 package com.example.autismpedia
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.autismpedia.databinding.ActivityMainBinding
@@ -21,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.navView, navController)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         setupMenuClickListeners()
@@ -49,6 +56,9 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, SignInActivity::class.java)
                 startActivity(intent)
                 this.finish()
+            } else {
+                NavigationUI.onNavDestinationSelected(item, navController)
+                drawerLayout.closeDrawer(GravityCompat.START)
             }
             true
         }
