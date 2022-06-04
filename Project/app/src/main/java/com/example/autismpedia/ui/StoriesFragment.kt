@@ -3,17 +3,19 @@ package com.example.autismpedia.ui
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.example.autismpedia.BaseApplication
 import com.example.autismpedia.databinding.FragmentStoriesBinding
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.State
@@ -29,6 +31,7 @@ class StoriesFragment : Fragment() {
     private val args: StoriesFragmentArgs by navArgs()
     private lateinit var currentGame: Game
     private var currentImageNr = 0
+    private var isImageEnlarged = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +42,7 @@ class StoriesFragment : Fragment() {
         binding = FragmentStoriesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-
         binding.game = args.game
-
         setupObservers()
 
         return binding.root
@@ -52,6 +53,95 @@ class StoriesFragment : Fragment() {
             currentGame = it.first
             currentImageNr = it.second
             openGalleryForImage()
+        })
+        viewModel.onEnlargeImageEvent.observe(viewLifecycleOwner, Observer {
+            currentImageNr = it
+            when(currentImageNr) {
+                0 ->  {
+                    if (isImageEnlarged) {
+                        binding.ivImageZero.layoutParams.height =
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        binding.ivImageZero.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                        isImageEnlarged = false
+                    } else {
+                        binding.ivImageZero.layoutParams.height =
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        binding.ivImageZero.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                        isImageEnlarged = true
+                    }
+                    binding.ivImageZero.requestLayout()
+                }
+                1 -> {
+                    if (isImageEnlarged) {
+                        binding.ivImageOne.layoutParams.height =
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        binding.ivImageOne.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                        isImageEnlarged = false
+                    } else {
+                        binding.ivImageOne.layoutParams.height =
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        binding.ivImageOne.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                        isImageEnlarged = true
+                    }
+                    binding.ivImageOne.requestLayout()
+                }
+                2 -> {
+                    if (isImageEnlarged) {
+                        binding.ivImageTwo.layoutParams.height =
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        binding.ivImageTwo.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                        isImageEnlarged = false
+                    } else {
+                        binding.ivImageTwo.layoutParams.height =
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        binding.ivImageTwo.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                        isImageEnlarged = true
+                    }
+                    binding.ivImageTwo.requestLayout()
+                }
+                3 -> {
+                    if (isImageEnlarged) {
+                        binding.ivImageThree.layoutParams.height =
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        binding.ivImageThree.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                        isImageEnlarged = false
+                    } else {
+                        binding.ivImageThree.layoutParams.height =
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        binding.ivImageThree.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                        isImageEnlarged = true
+                    }
+                    binding.ivImageThree.requestLayout()
+                }
+                4 -> {
+                    if (isImageEnlarged) {
+                        binding.ivImageFour.layoutParams.height =
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        binding.ivImageFour.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                        isImageEnlarged = false
+                    } else {
+                        binding.ivImageFour.layoutParams.height =
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        binding.ivImageFour.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                        isImageEnlarged = true
+                    }
+                    binding.ivImageFour.requestLayout()
+                }
+                5 -> {
+                    if (isImageEnlarged) {
+                        binding.ivImageFive.layoutParams.height =
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        binding.ivImageFive.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+                        isImageEnlarged = false
+                    } else {
+                        binding.ivImageFive.layoutParams.height =
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        binding.ivImageFive.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                        isImageEnlarged = true
+                    }
+                    binding.ivImageFive.requestLayout()
+                }
+            }
         })
     }
 
