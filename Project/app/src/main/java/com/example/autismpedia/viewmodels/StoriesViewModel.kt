@@ -18,6 +18,9 @@ class StoriesViewModel(private val repository: GameRepository) : ViewModel() {
     private val _onEnlargeImageEvent = SingleLiveEvent<Int>()
     val onEnlargeImageEvent : LiveData<Int> = _onEnlargeImageEvent
 
+    private val _onPlaySoundClicked = SingleLiveEvent<Void>()
+    val onPlaySoundClicked : LiveData<Void> = _onPlaySoundClicked
+
     fun onAddImageClicked(game: Game, imageNr: Int) {
         val prefs = Prefs(BaseApplication.instance.applicationContext)
         if(prefs.adminEnabled) {
@@ -25,6 +28,10 @@ class StoriesViewModel(private val repository: GameRepository) : ViewModel() {
         } else {
             _onEnlargeImageEvent.value = imageNr
         }
+    }
+
+    fun onPlaySoundClicked() {
+        _onPlaySoundClicked.call()
     }
 
     fun onAddImageToFirebase(game: Game, fileName: String, fileUri: Uri) = repository.addImageIdToFirebase(game, fileName, fileUri)

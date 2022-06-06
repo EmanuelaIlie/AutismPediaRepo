@@ -2,6 +2,7 @@ package com.example.autismpedia.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.autismpedia.BaseApplication
+import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentStoriesBinding
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.State
@@ -32,6 +34,7 @@ class StoriesFragment : Fragment() {
     private lateinit var currentGame: Game
     private var currentImageNr = 0
     private var isImageEnlarged = false
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,11 +51,19 @@ class StoriesFragment : Fragment() {
         return binding.root
     }
 
+    private fun setupSounds() {
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.singing_birds)
+        mediaPlayer.start()
+    }
+
     private fun setupObservers() {
         viewModel.onAddImageToFirebase.observe(viewLifecycleOwner, Observer {
             currentGame = it.first
             currentImageNr = it.second
             openGalleryForImage()
+        })
+        viewModel.onPlaySoundClicked.observe(viewLifecycleOwner, Observer {
+            setupSounds()
         })
         viewModel.onEnlargeImageEvent.observe(viewLifecycleOwner, Observer {
             currentImageNr = it
@@ -217,5 +228,10 @@ class StoriesFragment : Fragment() {
 
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer.stop()
     }
 }
