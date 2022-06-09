@@ -46,14 +46,18 @@ class StoriesFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.game = args.game
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.singing_birds)
         setupObservers()
 
         return binding.root
     }
 
     private fun setupSounds() {
-        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.singing_birds)
-        mediaPlayer.start()
+        if(mediaPlayer.isPlaying) {
+            mediaPlayer.pause()
+        } else {
+            mediaPlayer.start()
+        }
     }
 
     private fun setupObservers() {
