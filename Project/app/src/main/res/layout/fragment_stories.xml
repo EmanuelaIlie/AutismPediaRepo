@@ -45,9 +45,11 @@
                 android:text="@{isSoundPlaying ? @string/stop_sound : @string/play_sound}"
                 android:layout_marginTop="30dp"
                 android:onClick="@{() -> viewModel.onPlaySoundClicked()}"
+                app:icon="@{isSoundPlaying ? @drawable/ic_baseline_pause_24 : @drawable/ic_baseline_play_arrow_24}"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title"
                 app:layout_constraintStart_toStartOf="@+id/tv_title"
                 app:layout_constraintEnd_toEndOf="@+id/tv_title"
+                tools:text="play"
                 />
 
             <com.google.android.material.imageview.ShapeableImageView
