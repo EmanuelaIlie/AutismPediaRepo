@@ -48,14 +48,17 @@ class StoriesFragment : Fragment() {
         binding.game = args.game
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.singing_birds)
         setupObservers()
+        binding.isSoundPlaying = false
 
         return binding.root
     }
 
     private fun setupSounds() {
         if(mediaPlayer.isPlaying) {
+            binding.isSoundPlaying = false
             mediaPlayer.pause()
         } else {
+            binding.isSoundPlaying = true
             mediaPlayer.start()
         }
     }

@@ -12,6 +12,9 @@
         <variable
             name="game"
             type="com.example.autismpedia.models.Game" />
+        <variable
+            name="isSoundPlaying"
+            type="java.lang.Boolean" />
     </data>
 
     <ScrollView
@@ -39,21 +42,10 @@
                 android:id="@+id/btn_play_sound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Play sound"
+                android:text="@{isSoundPlaying ? @string/stop_sound : @string/play_sound}"
                 android:layout_marginTop="30dp"
                 android:onClick="@{() -> viewModel.onPlaySoundClicked()}"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title"
-                app:layout_constraintStart_toStartOf="@+id/tv_title"
-                app:layout_constraintEnd_toEndOf="@+id/tv_title"
-                />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_stop_sound"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stop sound"
-                android:onClick="@{() -> viewModel.onPlaySoundClicked()}"
-                app:layout_constraintTop_toBottomOf="@+id/btn_play_sound"
                 app:layout_constraintStart_toStartOf="@+id/tv_title"
                 app:layout_constraintEnd_toEndOf="@+id/tv_title"
                 />
