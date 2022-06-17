@@ -45,11 +45,27 @@ class GameRepository {
 
         // add image file to storage
         val extension = ".jpg"
-        val refStorage = FirebaseStorage.getInstance().reference.child("${game.type}/${Constants.FIRESTORE_STORAGE_IMAGES_FOLDER}/$fileName$extension")
+        val refStorage = FirebaseStorage.getInstance().reference.child("${game.type}/${Constants.FIRESTORE_IMAGES_FOLDER}/$fileName$extension")
         refStorage.putFile(fileUri).await()
 
         // add id to firestore
-        mGameCollection.collection(game.type.toString()).document(game.id.toString()).update(Constants.FIRESTORE_STORAGE_IMAGES_FOLDER, game.images).await()
+        mGameCollection.collection(game.type.toString()).document(game.id.toString()).update(Constants.FIRESTORE_IMAGES_FOLDER, game.images).await()
+
+        emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+    fun addAudioToFirebase(game: Game, fileName: String, fileUri: Uri) = flow<State<DocumentReference>> {
+        emit(State.loading())
+
+        // add audio file to storage
+        val extension = ".mp3"
+        val refStorage = FirebaseStorage.getInstance().reference.child("${Constants.FIREBASE_STORAGE_SOUND_FOLDER}/$fileName$extension")
+        refStorage.putFile(fileUri).await()
+
+        // add id to firestore
+        mGameCollection.collection(game.type.toString()).document(game.id.toString()).update(Constants.FIRESTORE_SOUND_FOLDER, fileName).await()
 
         emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
     }.catch {
@@ -62,7 +78,7 @@ class GameRepository {
 
         // add image file to storage
         val extension = ".jpg"
-        val refStorage = FirebaseStorage.getInstance().reference.child("${game.type}/${Constants.FIRESTORE_STORAGE_IMAGES_FOLDER}/$fileName$extension")
+        val refStorage = FirebaseStorage.getInstance().reference.child("${game.type}/${Constants.FIRESTORE_IMAGES_FOLDER}/$fileName$extension")
         refStorage.delete()
 
         emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))

@@ -6,7 +6,7 @@ import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log.e
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +17,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import androidx.startup.StartupLogger.e
 import com.example.autismpedia.databinding.FragmentStoriesBinding
 import com.example.autismpedia.models.Game
+import com.example.autismpedia.utils.Constants
 import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.StoriesViewModelFactory
 import com.example.autismpedia.viewmodels.StoriesViewModel
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
@@ -49,15 +50,14 @@ class StoriesFragment : Fragment() {
         binding.viewModel = viewModel
         binding.game = args.game
         setupObservers()
-        prepareSound()
         binding.isSoundPlaying = false
 
         return binding.root
     }
 
-    private fun prepareSound() {
+    private fun prepareSound(soundName: String? = args.game.sound) {
         val storage = FirebaseStorage.getInstance()
-        val gsReference = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/SOUNDS/singing_birds.mp3")
+        val gsReference = storage.getReferenceFromUrl("${Constants.FIREBASE_STORAGE_REF}/${Constants.FIREBASE_STORAGE_SOUND_FOLDER}/$soundName.mp3")
         gsReference.downloadUrl.addOnSuccessListener { uri ->
             try {
                 mediaPlayer = MediaPlayer().apply {
@@ -83,10 +83,16 @@ class StoriesFragment : Fragment() {
         } else {
             binding.isSoundPlaying = true
             mediaPlayer.start()
+            mediaPlayer.setOnCompletionListener {
+                binding.isSoundPlaying = false
+            }
         }
     }
 
     private fun setupObservers() {
+        viewModel.onAddNewSound.observe(viewLifecycleOwner, Observer {
+            openGalleryForAudio()
+        })
         viewModel.onAddImageToFirebase.observe(viewLifecycleOwner, Observer {
             currentGame = it.first
             currentImageNr = it.second
@@ -186,15 +192,53 @@ class StoriesFragment : Fragment() {
         })
     }
 
+    private fun openGalleryForAudio() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        resultLauncherAudio.launch(intent)
+    }
+
+    private val resultLauncherAudio = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if(result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            if (data?.data != null) {
+                val fileUri: Uri = data.data!!
+                uploadAudioToFirebase(fileUri)
+            }
+        }
+    }
+
+    private fun uploadAudioToFirebase(fileUri: Uri) {
+        lifecycleScope.launch {
+            val fileName = UUID.randomUUID().toString()
+            addAudioIdToFirestore(fileName, fileUri)
+        }
+    }
+
+    private suspend fun addAudioIdToFirestore(fileName: String, fileUri: Uri) {
+        viewModel.onAddAudioToFirebase(args.game, fileName, fileUri).collect() { state ->
+            when(state) {
+                is State.Loading -> {
+                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                }
+                is State.Success -> {
+                    Toast.makeText(requireContext(), "Added", Toast.LENGTH_SHORT).show()
+                    prepareSound(fileName)
+                }
+                is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
+
+            }
+        }
+    }
 
     private fun openGalleryForImage() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "image/*"
-        resultLauncher.launch(intent)
+        resultLauncherImage.launch(intent)
     }
 
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val resultLauncherImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if(result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             if (data?.data != null) {
@@ -258,6 +302,11 @@ class StoriesFragment : Fragment() {
 
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        prepareSound()
     }
 
     override fun onPause() {

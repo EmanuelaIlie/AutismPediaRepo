@@ -21,6 +21,9 @@ class StoriesViewModel(private val repository: GameRepository) : ViewModel() {
     private val _onPlaySoundClicked = SingleLiveEvent<Void>()
     val onPlaySoundClicked : LiveData<Void> = _onPlaySoundClicked
 
+    private val _onAddNewSound = SingleLiveEvent<Void>()
+    val onAddNewSound : LiveData<Void> = _onAddNewSound
+
     fun onAddImageClicked(game: Game, imageNr: Int) {
         val prefs = Prefs(BaseApplication.instance.applicationContext)
         if(prefs.adminEnabled) {
@@ -34,7 +37,13 @@ class StoriesViewModel(private val repository: GameRepository) : ViewModel() {
         _onPlaySoundClicked.call()
     }
 
+    fun onAddNewSound() {
+        _onAddNewSound.call()
+    }
+
     fun onAddImageToFirebase(game: Game, fileName: String, fileUri: Uri) = repository.addImageIdToFirebase(game, fileName, fileUri)
+
+    fun onAddAudioToFirebase(game: Game, fileName: String, fileUri: Uri) = repository.addAudioToFirebase(game, fileName, fileUri)
 
     fun removeImageFromFirebaseStorage(game: Game, fileName: String) = repository.removeImageFromFirebaseStorage(game, fileName)
 }

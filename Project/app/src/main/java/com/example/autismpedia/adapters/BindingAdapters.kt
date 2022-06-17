@@ -4,7 +4,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.example.autismpedia.R
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.models.Minigame
 import com.example.autismpedia.utils.Constants
@@ -45,14 +44,14 @@ fun loadImage(imageView: ImageView?, game: Game) {
 @BindingAdapter("loadImageParam", "imageNr")
 fun loadImageParam(imageView: ImageView?, game: Game, imageNr: Int) {
     val storage = FirebaseStorage.getInstance()
-    val gsReference = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${Constants.FIRESTORE_STORAGE_IMAGES_FOLDER}/")
+    val gsReference = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${Constants.FIRESTORE_IMAGES_FOLDER}/")
 
     gsReference.listAll()
         .addOnSuccessListener { listResult ->
             listResult.items.forEach { storageItem ->
                 if(storageItem.toString().contains(game.images[imageNr])) {
                     val extension = storageItem.toString().substringAfterLast(".")
-                    val imageRef = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${Constants.FIRESTORE_STORAGE_IMAGES_FOLDER}/${game.images[imageNr]}.$extension")
+                    val imageRef = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${Constants.FIRESTORE_IMAGES_FOLDER}/${game.images[imageNr]}.$extension")
                     imageView?.let { Glide.with(it.context).load(imageRef).into(imageView) }
                 }
             }

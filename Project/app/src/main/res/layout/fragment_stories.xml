@@ -67,17 +67,16 @@
                 app:layout_constraintEnd_toEndOf="@+id/btn_play_sound"
                 />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:background="@color/PrimaryGreen"
-                android:id="@+id/iv_sound_line"
-                android:layout_width="60dp"
-                android:layout_height="5dp"
-                android:visibility="@{isSoundPlaying ? View.GONE : View.VISIBLE}"
-                app:layout_constraintTop_toTopOf="@+id/animation_sound"
-                app:layout_constraintBottom_toBottomOf="@+id/animation_sound"
-                app:layout_constraintEnd_toEndOf="@+id/animation_sound"
-                app:layout_constraintStart_toStartOf="@+id/animation_sound"
-                />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_add_sound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:onClick="@{() -> viewModel.onAddNewSound()}"
+                android:src="@drawable/ic_baseline_add_24"
+                app:layout_constraintStart_toEndOf="@+id/btn_play_sound"
+                app:layout_constraintTop_toTopOf="@+id/btn_play_sound"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_play_sound"/>
 
             <com.google.android.material.imageview.ShapeableImageView
                 style="@style/StoryImageStyle"
