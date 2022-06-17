@@ -2,13 +2,14 @@ package com.example.autismpedia.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log.e
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -16,14 +17,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.example.autismpedia.BaseApplication
-import com.example.autismpedia.R
+import androidx.startup.StartupLogger.e
 import com.example.autismpedia.databinding.FragmentStoriesBinding
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.StoriesViewModelFactory
 import com.example.autismpedia.viewmodels.StoriesViewModel
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 
 class StoriesFragment : Fragment() {
@@ -46,14 +48,35 @@ class StoriesFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.game = args.game
-        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.singing_birds)
         setupObservers()
+        prepareSound()
         binding.isSoundPlaying = false
 
         return binding.root
     }
 
-    private fun setupSounds() {
+    private fun prepareSound() {
+        val storage = FirebaseStorage.getInstance()
+        val gsReference = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/SOUNDS/singing_birds.mp3")
+        gsReference.downloadUrl.addOnSuccessListener { uri ->
+            try {
+                mediaPlayer = MediaPlayer().apply {
+                    setAudioAttributes(
+                        AudioAttributes.Builder()
+                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                            .setUsage(AudioAttributes.USAGE_MEDIA)
+                            .build()
+                    )
+                    setDataSource(uri.toString())
+                    prepare()
+                }
+            } catch (e: Exception) {
+                Timber.e(e.message)
+            }
+        }
+    }
+
+    private fun setupOnClickSoundButton() {
         if(mediaPlayer.isPlaying) {
             binding.isSoundPlaying = false
             mediaPlayer.pause()
@@ -70,7 +93,7 @@ class StoriesFragment : Fragment() {
             openGalleryForImage()
         })
         viewModel.onPlaySoundClicked.observe(viewLifecycleOwner, Observer {
-            setupSounds()
+            setupOnClickSoundButton()
         })
         viewModel.onEnlargeImageEvent.observe(viewLifecycleOwner, Observer {
             currentImageNr = it
