@@ -2,9 +2,7 @@ package com.example.autismpedia.ui
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -19,6 +17,7 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: HomeFragmentBinding
     private lateinit var prefs: Prefs
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,11 +29,14 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
         setHasOptionsMenu(true)
         prefs = Prefs(requireContext())
-
-        // TODO vlad: remove
-        prefs.adminEnabled = true
+        mAuth = FirebaseAuth.getInstance()
+        onCheckTypeOfUser()
 
         return binding.root
+    }
+
+    private fun onCheckTypeOfUser() {
+        prefs.adminEnabled = mAuth.currentUser?.email?.contains("@e-uvt.ro") == true
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

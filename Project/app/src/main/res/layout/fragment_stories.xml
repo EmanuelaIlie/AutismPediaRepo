@@ -15,6 +15,9 @@
         <variable
             name="isSoundPlaying"
             type="java.lang.Boolean" />
+        <variable
+            name="isAdminEnabled"
+            type="java.lang.Boolean" />
         <import type="android.view.View"/>
     </data>
 
@@ -73,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:onClick="@{() -> viewModel.onAddNewSound()}"
+                android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
                 android:src="@drawable/ic_baseline_add_24"
                 app:layout_constraintStart_toEndOf="@+id/btn_play_sound"
                 app:layout_constraintTop_toTopOf="@+id/btn_play_sound"

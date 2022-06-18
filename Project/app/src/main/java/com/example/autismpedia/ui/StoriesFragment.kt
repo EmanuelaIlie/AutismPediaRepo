@@ -20,6 +20,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.autismpedia.databinding.FragmentStoriesBinding
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.Constants
+import com.example.autismpedia.utils.Prefs
 import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.StoriesViewModelFactory
 import com.example.autismpedia.viewmodels.StoriesViewModel
@@ -37,7 +38,8 @@ class StoriesFragment : Fragment() {
     private lateinit var currentGame: Game
     private var currentImageNr = 0
     private var isImageEnlarged = false
-    private lateinit var mediaPlayer: MediaPlayer
+    private var mediaPlayer: MediaPlayer = MediaPlayer()
+    private lateinit var prefs: Prefs
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +53,8 @@ class StoriesFragment : Fragment() {
         binding.game = args.game
         setupObservers()
         binding.isSoundPlaying = false
+        prefs = Prefs(requireContext())
+        binding.isAdminEnabled = prefs.adminEnabled
 
         return binding.root
     }
