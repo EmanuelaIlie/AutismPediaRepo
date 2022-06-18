@@ -42,16 +42,28 @@
             android:hint="@string/question_title"
             />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_add_new_game_list_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_baseline_image_24"
+            android:layout_marginTop="30dp"
+            android:onClick="@{() -> viewModel.onAddGameImage()}"
+            app:layout_constraintTop_toBottomOf="@+id/et_new_question_title"
+            app:layout_constraintStart_toStartOf="@+id/et_new_question_title"
+            app:layout_constraintEnd_toEndOf="@+id/et_new_question_title"
+            />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_add_new_game"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:text="@string/add_game"
             android:onClick="@{() -> viewModel.onAddNewGame()}"
-            app:layout_constraintTop_toBottomOf="@+id/et_new_question_title"
-            app:layout_constraintStart_toStartOf="@+id/et_new_question_title"
-            app:layout_constraintEnd_toEndOf="@+id/et_new_question_title"
+            app:layout_constraintTop_toBottomOf="@+id/iv_add_new_game_list_image"
+            app:layout_constraintStart_toStartOf="@+id/iv_add_new_game_list_image"
+            app:layout_constraintEnd_toEndOf="@+id/iv_add_new_game_list_image"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

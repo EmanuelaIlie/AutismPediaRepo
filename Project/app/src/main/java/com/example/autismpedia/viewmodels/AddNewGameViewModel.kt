@@ -12,8 +12,15 @@ class AddNewGameViewModel(private val repository: GameRepository) : ViewModel() 
     private val _onAddNewGame = SingleLiveEvent<Void>()
     val onAddNewGame : LiveData<Void> = _onAddNewGame
 
+    private val _onAddGameImage = SingleLiveEvent<Void>()
+    val onAddGameImage : LiveData<Void> = _onAddGameImage
+
     fun onAddNewGame() {
         _onAddNewGame.call()
+    }
+
+    fun onAddGameImage() {
+        _onAddGameImage.call()
     }
 
     fun onAddGameToFirebase(game: Game, gameType: GameType) = repository.addGame(game, gameType)
