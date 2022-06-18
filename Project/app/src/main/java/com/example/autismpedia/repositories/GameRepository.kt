@@ -30,17 +30,18 @@ class GameRepository {
     }.flowOn(Dispatchers.IO)
 
 
-    fun addGame(game: Game, gameType: GameType) = flow<State<DocumentReference>> {
+    fun addGame(game: Game, gameType: GameType) = flow<State<Game?>> {
         emit(State.loading())
-        val gameRef = mGameCollection.collection(gameType.string).add(game).await()
 
-        emit(State.success(gameRef))
+        mGameCollection.collection(gameType.string).document(game.id.toString()).set(game).await()
+
+        emit(State.success(game))
     }.catch {
         emit(State.failed(it.message.toString()))
     }.flowOn(Dispatchers.IO)
 
 
-    fun addImageIdToFirebase(game: Game, fileName: String, fileUri: Uri) = flow<State<DocumentReference>> {
+    fun addImageToFirebase(game: Game, fileName: String, fileUri: Uri) = flow<State<DocumentReference>> {
         emit(State.loading())
 
         // add image file to storage
@@ -55,6 +56,20 @@ class GameRepository {
     }.catch {
         emit(State.failed(it.message.toString()))
     }.flowOn(Dispatchers.IO)
+
+
+    fun addNewGameImageToStorage(game: Game, fileUri: Uri) = flow<State<DocumentReference>> {
+        emit(State.loading())
+
+        val extension = ".jpg"
+        val refStorage = FirebaseStorage.getInstance().reference.child("${game.type}/${game.id.toString()}$extension")
+        refStorage.putFile(fileUri).await()
+
+        emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
 
     fun addAudioToFirebase(game: Game, fileName: String, fileUri: Uri) = flow<State<DocumentReference>> {
         emit(State.loading())

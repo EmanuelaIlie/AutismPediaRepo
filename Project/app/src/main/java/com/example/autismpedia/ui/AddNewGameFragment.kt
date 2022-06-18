@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -29,6 +28,7 @@ import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.AddNewGameViewModelFactory
 import com.example.autismpedia.viewmodels.AddNewGameViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 
 class AddNewGameFragment : Fragment() {
 
@@ -36,6 +36,7 @@ class AddNewGameFragment : Fragment() {
     private lateinit var binding: FragmentAddNewGameBinding
     private val args: AddNewGameFragmentArgs by navArgs()
     private var isImageReady = false
+    private lateinit var fileUri: Uri
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,21 +60,37 @@ class AddNewGameFragment : Fragment() {
 
         viewModel.onAddNewGame.observe(viewLifecycleOwner, Observer {
             when(args.gameType) {
-                GameType.DIDACTIC -> {
-                    if(!binding.etNewGameTitle.text.isNullOrEmpty() && !binding.etNewQuestionTitle.text.isNullOrEmpty() && isImageReady) {
+                GameType.STORY -> {
+                    if(!binding.etNewGameTitle.text.isNullOrEmpty() && binding.ivAddNewGameListImage.drawable != null  && isImageReady) {
                         lifecycleScope.launch {
-                            val game = Game(title = binding.etNewGameTitle.text.toString(), question_title = binding.etNewQuestionTitle.text.toString())
+                            val fileName = UUID.randomUUID().toString()
+                            val game = Game(id = fileName, type = GameType.STORY.string,title = binding.etNewGameTitle.text.toString())
                             addGameToFirebase(game)
+                            addGameImageToStorage(game)
                         }
                     } else {
                         Toast.makeText(requireContext(), getString(R.string.meet_all_requirements), Toast.LENGTH_SHORT).show()
                     }
                 }
-                else -> {
+                GameType.DAILY_ACTIVITIES -> {
                     if(!binding.etNewGameTitle.text.isNullOrEmpty() && binding.ivAddNewGameListImage.drawable != null  && isImageReady) {
                         lifecycleScope.launch {
-                            val game = Game(title = binding.etNewGameTitle.text.toString())
+                            val fileName = UUID.randomUUID().toString()
+                            val game = Game(id = fileName, type = GameType.DAILY_ACTIVITIES.string,title = binding.etNewGameTitle.text.toString())
                             addGameToFirebase(game)
+                            addGameImageToStorage(game)
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), getString(R.string.meet_all_requirements), Toast.LENGTH_SHORT).show()
+                    }
+                }
+                GameType.DIDACTIC -> {
+                    if(!binding.etNewGameTitle.text.isNullOrEmpty() && !binding.etNewQuestionTitle.text.isNullOrEmpty() && isImageReady) {
+                        lifecycleScope.launch {
+                            val fileName = UUID.randomUUID().toString()
+                            val game = Game(id = fileName, type = GameType.DIDACTIC.string,title = binding.etNewGameTitle.text.toString(), question_title = binding.etNewQuestionTitle.text.toString())
+                            addGameToFirebase(game)
+                            addGameImageToStorage(game)
                         }
                     } else {
                         Toast.makeText(requireContext(), getString(R.string.meet_all_requirements), Toast.LENGTH_SHORT).show()
@@ -81,6 +98,18 @@ class AddNewGameFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private suspend fun addGameImageToStorage(game: Game) {
+        viewModel.onAddNewGameImageToStorage(game, fileUri).collect() { state ->
+            when(state) {
+                is State.Loading -> {
+                }
+                is State.Success -> {
+                }
+                is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private suspend fun addGameToFirebase(game: Game) {
@@ -108,7 +137,7 @@ class AddNewGameFragment : Fragment() {
         if(result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             if (data?.data != null) {
-                val fileUri: Uri = data.data!!
+                fileUri = data.data!!
                 Glide.with(requireView())
                     .load(fileUri)
                     .listener( object : RequestListener<Drawable> {

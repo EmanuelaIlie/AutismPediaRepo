@@ -1,5 +1,6 @@
 package com.example.autismpedia.viewmodels
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.autismpedia.enums.GameType
@@ -24,4 +25,6 @@ class AddNewGameViewModel(private val repository: GameRepository) : ViewModel() 
     }
 
     fun onAddGameToFirebase(game: Game, gameType: GameType) = repository.addGame(game, gameType)
+
+    fun onAddNewGameImageToStorage(game: Game, fileUri: Uri) = repository.addNewGameImageToStorage(game, fileUri)
 }

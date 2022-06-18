@@ -41,7 +41,7 @@ class StoriesViewModel(private val repository: GameRepository) : ViewModel() {
         _onAddNewSound.call()
     }
 
-    fun onAddImageToFirebase(game: Game, fileName: String, fileUri: Uri) = repository.addImageIdToFirebase(game, fileName, fileUri)
+    fun onAddImageToFirebase(game: Game, fileName: String, fileUri: Uri) = repository.addImageToFirebase(game, fileName, fileUri)
 
     fun onAddAudioToFirebase(game: Game, fileName: String, fileUri: Uri) = repository.addAudioToFirebase(game, fileName, fileUri)
 
