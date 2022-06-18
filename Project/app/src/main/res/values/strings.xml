@@ -5,7 +5,7 @@
     <string name="et_hint_adauga_introducere_si_obiectele_necesare">Adauga introducere si obiectele necesare...</string>
     <string name="btn_salveaza">Salveaza</string>
     <string name="tv_pasi">Pasi</string>
-    <string name="et_hint_adauga_pasi">Adauga pasi...</string>
+    <string name="et_hint_adauga_pasi">Adauga pasi…</string>
     <string name="tv_distractie_placuta">Distractie placuta!!</string>
     <string name="tv_hello">Hello</string>
     <string name="next">NEXT</string>
@@ -25,5 +25,6 @@
     <string name="game_title">Game title…</string>
     <string name="question_title">Question title…</string>
     <string name="add_game">Add game</string>
+    <string name="meet_all_requirements">Add game title and image</string>
 
 </resources>
