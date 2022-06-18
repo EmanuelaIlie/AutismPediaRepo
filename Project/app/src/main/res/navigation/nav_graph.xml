@@ -106,5 +106,11 @@
         android:id="@+id/addNewGameFragment"
         android:name="com.example.autismpedia.ui.AddNewGameFragment"
         android:label="fragment_add_new_game"
-        tools:layout="@layout/fragment_add_new_game" />
+        tools:layout="@layout/fragment_add_new_game" >
+
+        <argument
+            android:name="gameType"
+            app:argType="com.example.autismpedia.enums.GameType" />
+    </fragment>
+
 </navigation>

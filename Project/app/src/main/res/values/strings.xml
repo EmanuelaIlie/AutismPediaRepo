@@ -22,5 +22,8 @@
     <string name="play_sound">Play</string>
     <string name="stop_sound">Stop</string>
     <string name="superuser_enabled">Administrator</string>
+    <string name="game_title">Game title…</string>
+    <string name="question_title">Question title…</string>
+    <string name="add_game">Add game</string>
 
 </resources>

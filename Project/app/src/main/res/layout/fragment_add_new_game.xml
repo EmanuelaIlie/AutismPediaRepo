@@ -9,14 +9,50 @@
             name="viewModel"
             type="com.example.autismpedia.viewmodels.AddNewGameViewModel" />
         <import type="android.view.View"/>
+        <variable
+            name="gameType"
+            type="com.example.autismpedia.enums.GameType" />
     </data>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main_green_background">
 
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_new_game_title"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:hint="@string/game_title"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_new_question_title"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:visibility="@{gameType == gameType.DIDACTIC ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@+id/et_new_game_title"
+            app:layout_constraintStart_toStartOf="@+id/et_new_game_title"
+            app:layout_constraintEnd_toEndOf="@+id/et_new_game_title"
+            android:hint="@string/question_title"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_new_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/add_game"
+            android:onClick="@{() -> viewModel.onAddNewGame()}"
+            app:layout_constraintTop_toBottomOf="@+id/et_new_question_title"
+            app:layout_constraintStart_toStartOf="@+id/et_new_question_title"
+            app:layout_constraintEnd_toEndOf="@+id/et_new_question_title"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
