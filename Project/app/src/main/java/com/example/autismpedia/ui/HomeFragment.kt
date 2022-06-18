@@ -31,6 +31,7 @@ class HomeFragment : Fragment() {
         prefs = Prefs(requireContext())
         mAuth = FirebaseAuth.getInstance()
         onCheckTypeOfUser()
+        binding.isAdminEnabled = prefs.adminEnabled
 
         return binding.root
     }

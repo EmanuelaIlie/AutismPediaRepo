@@ -8,12 +8,30 @@
         <variable
             name="viewModel"
             type="com.example.autismpedia.viewmodels.HomeViewModel" />
+        <variable
+            name="isAdminEnabled"
+            type="java.lang.Boolean" />
+        <import type="android.view.View"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main_green_background">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_admin_enabled"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/superuser_enabled"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/PrimaryGreen"
+            android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
+            style="@style/StoryTitleStyle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
