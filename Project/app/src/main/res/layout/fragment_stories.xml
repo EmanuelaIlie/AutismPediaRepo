@@ -9,16 +9,20 @@
         <variable
             name="viewModel"
             type="com.example.autismpedia.viewmodels.StoriesViewModel" />
+
         <variable
             name="game"
             type="com.example.autismpedia.models.Game" />
+
         <variable
             name="isSoundPlaying"
             type="java.lang.Boolean" />
+
         <variable
             name="isAdminEnabled"
             type="java.lang.Boolean" />
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
     </data>
 
     <ScrollView
@@ -31,8 +35,8 @@
             android:background="@color/main_green_background">
 
             <androidx.appcompat.widget.AppCompatTextView
-                style="@style/StoryTitleStyle"
                 android:id="@+id/tv_title"
+                style="@style/StoryTitleStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -40,140 +44,205 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Capra cu 3 iezi"/>
+                tools:text="Capra cu 3 iezi" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_play_sound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{isSoundPlaying ? @string/stop_sound : @string/play_sound}"
                 android:layout_marginTop="30dp"
                 android:onClick="@{() -> viewModel.onPlaySoundClicked()}"
+                android:text="@{isSoundPlaying ? @string/stop_sound : @string/play_sound}"
                 app:icon="@{isSoundPlaying ? @drawable/ic_baseline_pause_24 : @drawable/ic_baseline_play_arrow_24}"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title"
-                app:layout_constraintStart_toStartOf="@+id/tv_title"
                 app:layout_constraintEnd_toEndOf="@+id/tv_title"
-                tools:text="play"
-                />
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                tools:text="play" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation_sound"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
+                android:visibility="@{isSoundPlaying ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintEnd_toEndOf="@+id/btn_play_sound"
+                app:layout_constraintStart_toStartOf="@+id/btn_play_sound"
+                app:layout_constraintTop_toBottomOf="@+id/btn_play_sound"
                 app:lottie_autoPlay="true"
                 app:lottie_clipToCompositionBounds="true"
                 app:lottie_loop="true"
-                android:visibility="@{isSoundPlaying ? View.VISIBLE : View.INVISIBLE}"
-                app:lottie_rawRes="@raw/sound_loading"
-                app:layout_constraintTop_toBottomOf="@+id/btn_play_sound"
-                app:layout_constraintStart_toStartOf="@+id/btn_play_sound"
-                app:layout_constraintEnd_toEndOf="@+id/btn_play_sound"
-                />
+                app:lottie_rawRes="@raw/sound_loading" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:backgroundTint="@color/PrimaryGreen"
                 android:id="@+id/btn_add_sound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:backgroundTint="@color/PrimaryGreen"
                 android:onClick="@{() -> viewModel.onAddNewSound()}"
-                android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
                 android:src="@drawable/ic_baseline_add_24"
+                android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_play_sound"
                 app:layout_constraintStart_toEndOf="@+id/btn_play_sound"
-                app:layout_constraintTop_toTopOf="@+id/btn_play_sound"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_play_sound"/>
+                app:layout_constraintTop_toTopOf="@+id/btn_play_sound" />
+
 
             <com.google.android.material.imageview.ShapeableImageView
-                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_zero"
+                style="@style/StoryImageStyle"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
                 android:layout_marginTop="20dp"
-                app:loadImageParam="@{game}"
-                app:imageNr="@{0}"
                 android:onClick="@{() -> viewModel.onAddImageClicked(game, 0)}"
+                android:src="@drawable/ic_google"
+                app:imageNr="@{0}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/animation_sound"
-                android:src="@drawable/ic_google"
-                tools:src="@drawable/ic_google"/>
+                app:loadImageParam="@{game}"
+                tools:src="@drawable/ic_google" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_corners_dark_green"
+                android:src="@drawable/ic_baseline_add_24"
+                android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="@+id/iv_image_zero"
+                app:layout_constraintTop_toTopOf="@+id/iv_image_zero" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_one"
+                style="@style/StoryImageStyle"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
                 android:layout_marginTop="30dp"
-                app:loadImageParam="@{game}"
-                app:imageNr="@{1}"
                 android:onClick="@{() -> viewModel.onAddImageClicked(game, 1)}"
+                android:src="@drawable/ic_google"
+                app:imageNr="@{1}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_zero"
-                android:src="@drawable/ic_google"
-                tools:src="@drawable/ic_google"/>
+                app:loadImageParam="@{game}"
+                tools:src="@drawable/ic_google" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_corners_dark_green"
+                android:src="@drawable/ic_baseline_add_24"
+                android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="@+id/iv_image_one"
+                app:layout_constraintTop_toTopOf="@+id/iv_image_one" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_two"
+                style="@style/StoryImageStyle"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
                 android:layout_marginTop="30dp"
-                app:loadImageParam="@{game}"
-                app:imageNr="@{2}"
                 android:onClick="@{() -> viewModel.onAddImageClicked(game, 2)}"
+                android:src="@drawable/ic_google"
+                app:imageNr="@{2}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_one"
-                android:src="@drawable/ic_google"
-                tools:src="@drawable/ic_google"/>
+                app:loadImageParam="@{game}"
+                tools:src="@drawable/ic_google" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_corners_dark_green"
+                android:src="@drawable/ic_baseline_add_24"
+                android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="@+id/iv_image_two"
+                app:layout_constraintTop_toTopOf="@+id/iv_image_two" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_three"
+                style="@style/StoryImageStyle"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
                 android:layout_marginTop="30dp"
-                app:loadImageParam="@{game}"
-                app:imageNr="@{3}"
                 android:onClick="@{() -> viewModel.onAddImageClicked(game, 3)}"
+                android:src="@drawable/ic_google"
+                app:imageNr="@{3}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_two"
-                android:src="@drawable/ic_google"
-                tools:src="@drawable/ic_google"/>
+                app:loadImageParam="@{game}"
+                tools:src="@drawable/ic_google" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_corners_dark_green"
+                android:src="@drawable/ic_baseline_add_24"
+                android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="@+id/iv_image_three"
+                app:layout_constraintTop_toTopOf="@+id/iv_image_three" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_four"
+                style="@style/StoryImageStyle"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
                 android:layout_marginTop="30dp"
-                app:loadImageParam="@{game}"
-                app:imageNr="@{4}"
                 android:onClick="@{() -> viewModel.onAddImageClicked(game, 4)}"
+                android:src="@drawable/ic_google"
+                app:imageNr="@{4}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_three"
-                android:src="@drawable/ic_google"
-                tools:src="@drawable/ic_google"/>
+                app:loadImageParam="@{game}"
+                tools:src="@drawable/ic_google" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_corners_dark_green"
+                android:src="@drawable/ic_baseline_add_24"
+                android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="@+id/iv_image_four"
+                app:layout_constraintTop_toTopOf="@+id/iv_image_four" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                style="@style/StoryImageStyle"
                 android:id="@+id/iv_image_five"
+                style="@style/StoryImageStyle"
                 android:layout_width="@dimen/width_iv_stories"
                 android:layout_height="@dimen/height_iv_stories"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
-                app:loadImageParam="@{game}"
-                app:imageNr="@{5}"
                 android:onClick="@{() -> viewModel.onAddImageClicked(game, 5)}"
+                android:src="@drawable/ic_google"
+                app:imageNr="@{5}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_four"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:src="@drawable/ic_google"
-                tools:src="@drawable/ic_google"/>
+                app:loadImageParam="@{game}"
+                tools:src="@drawable/ic_google" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_corners_dark_green"
+                android:src="@drawable/ic_baseline_add_24"
+                android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="@+id/iv_image_five"
+                app:layout_constraintTop_toTopOf="@+id/iv_image_five" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
