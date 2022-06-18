@@ -55,10 +55,11 @@ class GameIdeasFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.onAddGameClicked.observe(viewLifecycleOwner, Observer {
-            lifecycleScope.launch {
-                val game = Game()
-                addGameToFirebase(game)
-            }
+            findNavController().navigate(GameIdeasFragmentDirections.actionGameIdeasFragmentToAddNewGameFragment())
+//            lifecycleScope.launch {
+//                val game = Game()
+//                addGameToFirebase(game)
+//            }
         })
     }
 

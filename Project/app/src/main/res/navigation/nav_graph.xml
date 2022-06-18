@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_gameIdeasFragment_to_didacticFragment"
             app:destination="@id/didacticFragment" />
+        <action
+            android:id="@+id/action_gameIdeasFragment_to_addNewGameFragment"
+            app:destination="@id/addNewGameFragment" />
     </fragment>
     <fragment
         android:id="@+id/raportFragment"
@@ -99,4 +102,9 @@
             android:name="game"
             app:argType="com.example.autismpedia.models.Game" />
     </fragment>
+    <fragment
+        android:id="@+id/addNewGameFragment"
+        android:name="com.example.autismpedia.ui.AddNewGameFragment"
+        android:label="fragment_add_new_game"
+        tools:layout="@layout/fragment_add_new_game" />
 </navigation>
