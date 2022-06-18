@@ -32,7 +32,7 @@ class GameRepository {
 
     fun addGame(game: Game, gameType: GameType) = flow<State<DocumentReference>> {
         emit(State.loading())
-        val gameRef = mGameCollection.collection(game.type.toString()).add(game).await()
+        val gameRef = mGameCollection.collection(gameType.string).add(game).await()
 
         emit(State.success(gameRef))
     }.catch {
