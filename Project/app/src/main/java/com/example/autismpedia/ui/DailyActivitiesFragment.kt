@@ -1,6 +1,8 @@
 package com.example.autismpedia.ui
 
 import android.annotation.SuppressLint
+import android.media.AudioAttributes
+import android.media.MediaPlayer
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -18,11 +20,14 @@ import androidx.navigation.fragment.navArgs
 import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentDailyActivitiesBinding
 import com.example.autismpedia.enums.DailyActivitiesType
+import com.example.autismpedia.utils.Constants
 import com.example.autismpedia.utils.Prefs
 import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.DailyActivitiesViewModelFactory
 import com.example.autismpedia.viewmodels.DailyActivitiesViewModel
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class DailyActivitiesFragment : Fragment() {
 
@@ -46,20 +51,26 @@ class DailyActivitiesFragment : Fragment() {
         makeEditTextScrollable()
         prefs = Prefs(requireContext())
         binding.isAdminEnabled = prefs.adminEnabled
-
-        val mediaControls = MediaController(requireContext())
-        mediaControls.setAnchorView(binding.videoDaily)
-        binding.videoDaily.setMediaController(mediaControls)
-        val path = "android.resource://${requireContext().packageName}/${R.raw.video}"
-        binding.videoDaily.setVideoURI(Uri.parse(path))
-        binding.videoDaily.requestFocus()
-        binding.videoDaily.start()
-
-        binding.videoDaily.setOnCompletionListener {
-            Toast.makeText(requireContext(), "Video completed", Toast.LENGTH_SHORT).show()
-        }
+        setupVideo()
 
         return binding.root
+    }
+
+    private fun setupVideo(videoName: String? = args.game.video) {
+        val storage = FirebaseStorage.getInstance()
+        val gsReference = storage.getReferenceFromUrl("${Constants.FIREBASE_STORAGE_REF}/${Constants.FIREBASE_STORAGE_VIDEO_FOLDER}/$videoName.mp4")
+        gsReference.downloadUrl.addOnSuccessListener { uri ->
+            try {
+                val mediaControls = MediaController(requireContext())
+                mediaControls.setAnchorView(binding.videoDaily)
+                binding.videoDaily.setMediaController(mediaControls)
+                binding.videoDaily.setVideoURI(uri)
+                binding.videoDaily.requestFocus()
+                binding.videoDaily.start()
+            } catch (e: Exception) {
+                Timber.e(e.message)
+            }
+        }
     }
 
     private fun setupFlows() {

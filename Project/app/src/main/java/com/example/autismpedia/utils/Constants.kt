@@ -10,4 +10,5 @@ object Constants {
     const val ADMIN_ENABLED = "ADMIN_ENABLED"
     const val FIREBASE_STORAGE_REF = "gs://autismpedia-e7d4a.appspot.com"
     const val FIREBASE_STORAGE_SOUND_FOLDER = "SOUNDS"
+    const val FIREBASE_STORAGE_VIDEO_FOLDER = "VIDEOS"
 }
