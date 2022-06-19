@@ -1,11 +1,13 @@
 package com.example.autismpedia.repositories
 
 import android.net.Uri
+import android.provider.SyncStateContract.Helpers.update
 import com.example.autismpedia.enums.DailyActivitiesType
 import com.example.autismpedia.enums.GameType
 import com.example.autismpedia.models.Game
 import com.example.autismpedia.models.Minigame
 import com.example.autismpedia.utils.Constants
+import com.example.autismpedia.utils.Constants.FIRESTORE_MINIGAMES_COLLECTION
 import com.example.autismpedia.utils.State
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -51,6 +53,23 @@ class GameRepository {
 
         // add id to firestore
         mGameCollection.collection(game.type.toString()).document(game.id.toString()).update(Constants.FIRESTORE_IMAGES_FOLDER, game.images).await()
+
+        emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+
+    fun addMinigameImageToFirebase(game: Game, fileName: String, fileUri: Uri, minigame: Minigame) = flow<State<DocumentReference>> {
+        emit(State.loading())
+
+        // add image file to storage
+        val extension = ".jpg"
+        val refStorage = FirebaseStorage.getInstance().reference.child("${game.type}/${Constants.FIRESTORE_IMAGES_FOLDER}/$fileName$extension")
+        refStorage.putFile(fileUri).await()
+
+        // add id to firestore
+        mGameCollection.collection(game.type.toString()).document(game.id.toString()).collection(FIRESTORE_MINIGAMES_COLLECTION).document(minigame.id.toString()).update(Constants.FIRESTORE_IMAGES_FOLDER, minigame.images).await()
 
         emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
     }.catch {

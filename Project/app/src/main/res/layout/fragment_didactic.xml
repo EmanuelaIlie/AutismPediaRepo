@@ -60,6 +60,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/rounded_corners_dark_green"
             android:src="@drawable/ic_baseline_add_24"
+            android:onClick="@{() -> viewModel}"
             android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/iv_question"
             app:layout_constraintTop_toTopOf="@+id/iv_question" />

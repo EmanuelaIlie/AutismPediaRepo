@@ -1,6 +1,8 @@
 package com.example.autismpedia.ui
 
-import android.graphics.drawable.Drawable
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -9,22 +11,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentDidacticBinding
-import com.example.autismpedia.enums.GameType
 import com.example.autismpedia.models.Game
+import com.example.autismpedia.models.Minigame
 import com.example.autismpedia.utils.Prefs
 import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.DidacticViewModelFactory
 import com.example.autismpedia.viewmodels.DidacticViewModel
 import kotlinx.coroutines.launch
-import kotlin.math.min
+import java.util.*
 
 class DidacticFragment : Fragment() {
 
@@ -35,6 +36,8 @@ class DidacticFragment : Fragment() {
     private var answeredCorrectly = false
     private var correctAnswerIndex = 0
     private lateinit var prefs: Prefs
+    private var currentImageNrToBeAdded = 0
+    private var currentMinigame = Minigame()
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
@@ -57,6 +60,11 @@ class DidacticFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setupObservers() {
+        viewModel.onAddNewImageEvent.observe(viewLifecycleOwner, Observer { imageNr ->
+            currentImageNrToBeAdded = imageNr
+            openGalleryForImage()
+        })
+
         viewModel.onNextMinigame.observe(viewLifecycleOwner, Observer {
             answeredCorrectly = false
             correctAnswerIndex = 0
@@ -129,11 +137,65 @@ class DidacticFragment : Fragment() {
                         if(minigame?.right_answer != null) {
                             correctAnswerIndex = minigame.right_answer
                             binding.miniGame = minigame
+                            currentMinigame = minigame
                         }
                     }
                     if(indexOfQuestion >= state.data.size - 1) {
                         binding.btnDidacticNext.visibility = View.INVISIBLE
                     }
+                }
+                is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
+
+            }
+        }
+    }
+
+    private fun openGalleryForImage() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "image/*"
+        resultLauncherImage.launch(intent)
+    }
+
+    private val resultLauncherImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if(result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            if (data?.data != null) {
+                val fileUri: Uri = data.data!!
+                uploadImageToFirebase(fileUri)
+            }
+        }
+    }
+
+    private fun uploadImageToFirebase(fileUri: Uri) {
+        lifecycleScope.launch {
+            val fileName = UUID.randomUUID().toString()
+            addImageIdToFirestore(fileName, fileUri)
+        }
+    }
+
+    private suspend fun addImageIdToFirestore(fileName: String, fileUri: Uri) {
+        // #TODO
+//        val newMinigame = currentMinigame.copy()
+//
+//        val currentGame = args.game
+//        val newList = currentGame.minigames?.get(indexOfQuestion)?.images?.toMutableList()
+//        newList?.set(currentImageNrToBeAdded, fileName)
+//        val newGame = currentGame.copy()
+        viewModel.onAddImageToFirebase(newGame, fileName, fileUri, currentMinigame).collect() { state ->
+            when(state) {
+                is State.Loading -> {
+                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                }
+                is State.Success -> {
+                    Toast.makeText(requireContext(), "Added", Toast.LENGTH_SHORT).show()
+                    when(currentImageNrToBeAdded) {
+                        0 -> binding.ivQuestion.setImageURI(fileUri)
+                        1 -> binding.ivAnswerOne.setImageURI(fileUri)
+                        2 -> binding.ivAnswerTwo.setImageURI(fileUri)
+                        3 -> binding.ivAnswerThree.setImageURI(fileUri)
+                    }
+                    binding.game = newGame
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
 

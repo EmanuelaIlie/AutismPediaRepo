@@ -17,4 +17,5 @@ data class Game (
         @SerialName("question_title") val question_title: String? = "",
         @SerialName("sound") val sound: String? = "",
         @SerialName("video") val video: String? = "",
+        @SerialName("minigame") val minigames: MutableList<Minigame>? = mutableListOf(),
 ): java.io.Serializable
