@@ -15,6 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.autismpedia.databinding.FragmentDailyActivitiesBinding
 import com.example.autismpedia.enums.DailyActivitiesType
+import com.example.autismpedia.utils.Prefs
 import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.DailyActivitiesViewModelFactory
 import com.example.autismpedia.viewmodels.DailyActivitiesViewModel
@@ -25,6 +26,8 @@ class DailyActivitiesFragment : Fragment() {
     private lateinit var viewModel: DailyActivitiesViewModel
     private lateinit var binding: FragmentDailyActivitiesBinding
     private val args: DailyActivitiesFragmentArgs by navArgs()
+    private lateinit var prefs: Prefs
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +41,8 @@ class DailyActivitiesFragment : Fragment() {
         binding.game = args.game
         setupFlows()
         makeEditTextScrollable()
+        prefs = Prefs(requireContext())
+        binding.isAdminEnabled = prefs.adminEnabled
 
         return binding.root
     }

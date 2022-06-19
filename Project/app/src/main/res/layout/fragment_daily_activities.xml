@@ -15,6 +15,12 @@
             type="com.example.autismpedia.models.Game" />
 
         <import type="com.example.autismpedia.enums.DailyActivitiesType"/>
+
+        <variable
+            name="isAdminEnabled"
+            type="java.lang.Boolean" />
+
+        <import type="android.view.View" />
     </data>
 
     <ScrollView
@@ -88,6 +94,7 @@
                     android:textSize="@dimen/dimen10sp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="20dp"
+                    android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
                     android:onClick="@{() -> viewModel.onSaveTextClicked(DailyActivitiesType.NECESSARY_OBJECTS)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_obiecte_necesare"
@@ -99,16 +106,18 @@
                     android:overScrollMode="always"
                     android:scrollbarStyle="insideInset"
                     android:scrollbars="vertical"
-                    android:background="@drawable/rounded_corners"
+                    android:background="@{isAdminEnabled ? @drawable/rounded_corners : @drawable/rounded_corners_white}"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="15dp"
+                    android:textColor="@color/black"
                     android:paddingTop="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:gravity="top"
+                    android:enabled="@{isAdminEnabled ? true : false}"
                     android:inputType="textMultiLine"
                     android:hint="@string/et_hint_adauga_introducere_si_obiectele_necesare"
                     app:layout_constraintTop_toBottomOf="@+id/tv_obiecte_necesare"
@@ -154,6 +163,7 @@
                     android:textSize="@dimen/dimen10sp"
                     android:textColor="@color/black"
                     android:layout_marginEnd="20dp"
+                    android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
                     android:onClick="@{() -> viewModel.onSaveTextClicked(DailyActivitiesType.STEPS)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_steps"
@@ -162,17 +172,19 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/et_add_steps"
-                    android:background="@drawable/rounded_corners"
+                    android:background="@{isAdminEnabled ? @drawable/rounded_corners : @drawable/rounded_corners_white}"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="15dp"
+                    android:textColor="@color/black"
                     android:paddingTop="10dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:gravity="top"
                     android:hint="@string/et_hint_adauga_pasi"
+                    android:enabled="@{isAdminEnabled ? true : false}"
                     app:layout_constraintTop_toBottomOf="@+id/tv_steps"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
