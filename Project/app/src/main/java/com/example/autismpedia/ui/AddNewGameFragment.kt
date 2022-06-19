@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -27,6 +28,7 @@ import com.example.autismpedia.models.Game
 import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.AddNewGameViewModelFactory
 import com.example.autismpedia.viewmodels.AddNewGameViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -120,6 +122,8 @@ class AddNewGameFragment : Fragment() {
                 }
                 is State.Success -> {
                     Toast.makeText(requireContext(), "Added", Toast.LENGTH_SHORT).show()
+                    delay(1000)
+                    findNavController().popBackStack()
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
             }
