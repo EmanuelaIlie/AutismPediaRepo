@@ -88,6 +88,23 @@ class GameRepository {
     }.flowOn(Dispatchers.IO)
 
 
+    fun addVideoToFirebase(game: Game, fileName: String, fileUri: Uri) = flow<State<DocumentReference>> {
+        emit(State.loading())
+
+        // add video file to storage
+        val extension = ".mp4"
+        val refStorage = FirebaseStorage.getInstance().reference.child("${Constants.FIREBASE_STORAGE_VIDEO_FOLDER}/$fileName$extension")
+        refStorage.putFile(fileUri).await()
+
+        // add id to firestore
+        mGameCollection.collection(game.type.toString()).document(game.id.toString()).update(Constants.FIRESTORE_VIDEO_FOLDER, fileName).await()
+
+        emit(State.success(mGameCollection.collection(game.type.toString()).document(game.id.toString())))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+
     fun removeImageFromFirebaseStorage(game: Game, fileName: String) = flow<State<DocumentReference>> {
         emit(State.loading())
 

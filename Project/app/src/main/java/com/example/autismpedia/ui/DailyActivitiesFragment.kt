@@ -1,11 +1,14 @@
 package com.example.autismpedia.ui
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -13,7 +16,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
@@ -28,6 +33,7 @@ import com.example.autismpedia.viewmodels.DailyActivitiesViewModel
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 
 class DailyActivitiesFragment : Fragment() {
 
@@ -52,8 +58,15 @@ class DailyActivitiesFragment : Fragment() {
         prefs = Prefs(requireContext())
         binding.isAdminEnabled = prefs.adminEnabled
         setupVideo()
+        setupObservers()
 
         return binding.root
+    }
+
+    private fun setupObservers() {
+        viewModel.onAddNewVideoEvent.observe(viewLifecycleOwner, Observer {
+            openGalleryForVideo()
+        })
     }
 
     private fun setupVideo(videoName: String? = args.game.video) {
@@ -83,6 +96,44 @@ class DailyActivitiesFragment : Fragment() {
                viewModel.onSaveTextClicked.collect { dailyActivitiesType ->
                    onAddDailyActivitiesTextToFirebase(dailyActivitiesType)
                }
+            }
+        }
+    }
+
+    private fun openGalleryForVideo() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        resultLauncherVideo.launch(intent)
+    }
+
+    private val resultLauncherVideo = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if(result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            if (data?.data != null) {
+                val fileUri: Uri = data.data!!
+                uploadVideoToFirebase(fileUri)
+            }
+        }
+    }
+
+    private fun uploadVideoToFirebase(fileUri: Uri) {
+        lifecycleScope.launch {
+            val fileName = UUID.randomUUID().toString()
+            addVideoIdToFirestore(fileName, fileUri)
+        }
+    }
+
+    private suspend fun addVideoIdToFirestore(fileName: String, fileUri: Uri) {
+        viewModel.onAddVideoToFirebase(args.game, fileName, fileUri).collect() { state ->
+            when(state) {
+                is State.Loading -> {
+                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                }
+                is State.Success -> {
+                    Toast.makeText(requireContext(), "Added", Toast.LENGTH_SHORT).show()
+                    setupVideo(fileName)
+                }
+                is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }

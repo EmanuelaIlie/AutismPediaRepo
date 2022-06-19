@@ -3,6 +3,7 @@ package com.example.autismpedia.utils
 object Constants {
     const val FIRESTORE_IMAGES_FOLDER = "images"
     const val FIRESTORE_SOUND_FOLDER = "sound"
+    const val FIRESTORE_VIDEO_FOLDER = "video"
     const val FIRESTORE_NECESSARY_OBJECTS_FILED = "necessary_objects"
     const val FIRESTORE_STEPS_FILED = "steps"
     const val FIRESTORE_MINIGAMES_COLLECTION = "minigames"
