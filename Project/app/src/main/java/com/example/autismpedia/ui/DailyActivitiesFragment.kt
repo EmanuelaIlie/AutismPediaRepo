@@ -1,6 +1,7 @@
 package com.example.autismpedia.ui
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,11 +9,13 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.MediaController
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentDailyActivitiesBinding
 import com.example.autismpedia.enums.DailyActivitiesType
 import com.example.autismpedia.utils.Prefs
@@ -43,6 +46,18 @@ class DailyActivitiesFragment : Fragment() {
         makeEditTextScrollable()
         prefs = Prefs(requireContext())
         binding.isAdminEnabled = prefs.adminEnabled
+
+        val mediaControls = MediaController(requireContext())
+        mediaControls.setAnchorView(binding.videoDaily)
+        binding.videoDaily.setMediaController(mediaControls)
+        val path = "android.resource://${requireContext().packageName}/${R.raw.video}"
+        binding.videoDaily.setVideoURI(Uri.parse(path))
+        binding.videoDaily.requestFocus()
+        binding.videoDaily.start()
+
+        binding.videoDaily.setOnCompletionListener {
+            Toast.makeText(requireContext(), "Video completed", Toast.LENGTH_SHORT).show()
+        }
 
         return binding.root
     }
