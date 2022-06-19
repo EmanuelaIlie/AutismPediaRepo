@@ -19,6 +19,7 @@ import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentDidacticBinding
 import com.example.autismpedia.enums.GameType
 import com.example.autismpedia.models.Game
+import com.example.autismpedia.utils.Prefs
 import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.DidacticViewModelFactory
 import com.example.autismpedia.viewmodels.DidacticViewModel
@@ -33,6 +34,7 @@ class DidacticFragment : Fragment() {
     private var indexOfQuestion = 0
     private var answeredCorrectly = false
     private var correctAnswerIndex = 0
+    private lateinit var prefs: Prefs
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
@@ -47,6 +49,8 @@ class DidacticFragment : Fragment() {
         binding.game = args.game
         setupFlows()
         setupObservers()
+        prefs = Prefs(requireContext())
+        binding.isAdminEnabled = prefs.adminEnabled
 
         return binding.root
     }
