@@ -71,8 +71,6 @@ class DidacticFragment : Fragment() {
         viewModel.onNextMinigame.observe(viewLifecycleOwner, Observer {
             answeredCorrectly = false
             correctAnswerIndex = 0
-            // todo ???
-//            indexOfQuestion = 0
             binding.btnDidacticNext.isEnabled = false
             binding.ivAnswerOne.strokeColor = resources.getColorStateList(R.color.color_full_transparent, null)
             binding.ivAnswerTwo.strokeColor = resources.getColorStateList(R.color.color_full_transparent, null)
@@ -196,7 +194,6 @@ class DidacticFragment : Fragment() {
                         2 -> binding.ivAnswerTwo.setImageURI(fileUri)
                         3 -> binding.ivAnswerThree.setImageURI(fileUri)
                     }
-//                    binding.game = currentGame
                     findNavController().popBackStack()
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
