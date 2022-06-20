@@ -65,7 +65,7 @@ class GameRepository {
 
         // add image file to storage
         val extension = ".jpg"
-        val refStorage = FirebaseStorage.getInstance().reference.child("${game.type}/${Constants.FIRESTORE_IMAGES_FOLDER}/$fileName$extension")
+        val refStorage = FirebaseStorage.getInstance().reference.child("${game.type}/$fileName$extension")
         refStorage.putFile(fileUri).await()
 
         // add id to firestore

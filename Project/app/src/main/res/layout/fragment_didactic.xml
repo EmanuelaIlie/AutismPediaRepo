@@ -60,7 +60,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/rounded_corners_dark_green"
             android:src="@drawable/ic_baseline_add_24"
-            android:onClick="@{() -> viewModel}"
+            android:onClick="@{() -> viewModel.onAddNewImageEvent(0, game)}"
             android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/iv_question"
             app:layout_constraintTop_toTopOf="@+id/iv_question" />
@@ -88,6 +88,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/rounded_corners_dark_green"
             android:src="@drawable/ic_baseline_add_24"
+            android:onClick="@{() -> viewModel.onAddNewImageEvent(1, game)}"
             android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/iv_answer_one"
             app:layout_constraintTop_toTopOf="@+id/iv_answer_one" />
@@ -115,6 +116,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/rounded_corners_dark_green"
             android:src="@drawable/ic_baseline_add_24"
+            android:onClick="@{() -> viewModel.onAddNewImageEvent(2, game)}"
             android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/iv_answer_two"
             app:layout_constraintTop_toTopOf="@+id/iv_answer_two" />
@@ -143,6 +145,7 @@
             android:layout_marginEnd="10dp"
             android:background="@drawable/rounded_corners_dark_green"
             android:src="@drawable/ic_baseline_add_24"
+            android:onClick="@{() -> viewModel.onAddNewImageEvent(3, game)}"
             android:visibility="@{isAdminEnabled ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/iv_answer_three"
             app:layout_constraintTop_toTopOf="@+id/iv_answer_three" />

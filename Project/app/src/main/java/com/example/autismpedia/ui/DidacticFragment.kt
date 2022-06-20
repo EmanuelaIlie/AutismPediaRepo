@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.autismpedia.R
 import com.example.autismpedia.databinding.FragmentDidacticBinding
@@ -38,6 +39,7 @@ class DidacticFragment : Fragment() {
     private lateinit var prefs: Prefs
     private var currentImageNrToBeAdded = 0
     private var currentMinigame = Minigame()
+    private lateinit var currentGame: Game
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
@@ -60,15 +62,17 @@ class DidacticFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setupObservers() {
-        viewModel.onAddNewImageEvent.observe(viewLifecycleOwner, Observer { imageNr ->
-            currentImageNrToBeAdded = imageNr
+        viewModel.onAddNewImageEvent.observe(viewLifecycleOwner, Observer { pair ->
+            currentGame = pair.first
+            currentImageNrToBeAdded = pair.second
             openGalleryForImage()
         })
 
         viewModel.onNextMinigame.observe(viewLifecycleOwner, Observer {
             answeredCorrectly = false
             correctAnswerIndex = 0
-            indexOfQuestion = 0
+            // todo ???
+//            indexOfQuestion = 0
             binding.btnDidacticNext.isEnabled = false
             binding.ivAnswerOne.strokeColor = resources.getColorStateList(R.color.color_full_transparent, null)
             binding.ivAnswerTwo.strokeColor = resources.getColorStateList(R.color.color_full_transparent, null)
@@ -175,14 +179,11 @@ class DidacticFragment : Fragment() {
     }
 
     private suspend fun addImageIdToFirestore(fileName: String, fileUri: Uri) {
-        // #TODO
-//        val newMinigame = currentMinigame.copy()
-//
-//        val currentGame = args.game
-//        val newList = currentGame.minigames?.get(indexOfQuestion)?.images?.toMutableList()
-//        newList?.set(currentImageNrToBeAdded, fileName)
-//        val newGame = currentGame.copy()
-        viewModel.onAddImageToFirebase(newGame, fileName, fileUri, currentMinigame).collect() { state ->
+        val newMinigameList = currentMinigame.images.toMutableList()
+        newMinigameList[currentImageNrToBeAdded] = fileName
+        val newMinigame = currentMinigame.copy(images = newMinigameList)
+
+        viewModel.onAddImageToFirebase(currentGame, fileName, fileUri, newMinigame).collect() { state ->
             when(state) {
                 is State.Loading -> {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
@@ -195,7 +196,8 @@ class DidacticFragment : Fragment() {
                         2 -> binding.ivAnswerTwo.setImageURI(fileUri)
                         3 -> binding.ivAnswerThree.setImageURI(fileUri)
                     }
-                    binding.game = newGame
+//                    binding.game = currentGame
+                    findNavController().popBackStack()
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
 

@@ -69,6 +69,7 @@ class GameIdeasFragment : Fragment() {
                 }
                 is State.Success -> {
                     adapter.submitList(state.data)
+                    val asd = 1
                 }
                 is State.Failed -> Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
 
