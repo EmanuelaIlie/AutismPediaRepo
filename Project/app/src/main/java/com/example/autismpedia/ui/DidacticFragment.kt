@@ -25,6 +25,7 @@ import com.example.autismpedia.utils.Prefs
 import com.example.autismpedia.utils.State
 import com.example.autismpedia.viewmodelfactories.DidacticViewModelFactory
 import com.example.autismpedia.viewmodels.DidacticViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -62,6 +63,12 @@ class DidacticFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setupObservers() {
+        viewModel.onAddNewMinigameEvent.observe(viewLifecycleOwner, Observer {
+            lifecycleScope.launch {
+                addMinigame()
+            }
+        })
+
         viewModel.onAddNewImageEvent.observe(viewLifecycleOwner, Observer { pair ->
             currentGame = pair.first
             currentImageNrToBeAdded = pair.second
@@ -124,6 +131,22 @@ class DidacticFragment : Fragment() {
     private fun setupFlows() {
         lifecycleScope.launch {
             loadMiniGames(args.game)
+        }
+    }
+
+    private suspend fun addMinigame() {
+        viewModel.onAddMinigameToFirebase(game = args.game).collect() { state ->
+            when(state) {
+                is State.Loading -> {
+                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                }
+                is State.Success -> {
+                    Toast.makeText(requireContext(), "Added minigame", Toast.LENGTH_SHORT).show()
+                }
+                is State.Failed -> {
+                    Toast.makeText(requireContext(), "Failed! ${state.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

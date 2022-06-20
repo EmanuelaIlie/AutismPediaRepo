@@ -43,6 +43,17 @@ class GameRepository {
     }.flowOn(Dispatchers.IO)
 
 
+    fun addMinigame(game: Game, minigame: Minigame = Minigame(right_answer = (1..3).random(), images = mutableListOf<String>("","","",""))) = flow<State<Minigame?>> {
+        emit(State.loading())
+
+        mGameCollection.collection(game.type.toString()).document(game.id.toString()).collection(FIRESTORE_MINIGAMES_COLLECTION).add(minigame).await()
+
+        emit(State.success(minigame))
+    }.catch {
+        emit(State.failed(it.message.toString()))
+    }.flowOn(Dispatchers.IO)
+
+
     fun addImageToFirebase(game: Game, fileName: String, fileUri: Uri) = flow<State<DocumentReference>> {
         emit(State.loading())
 

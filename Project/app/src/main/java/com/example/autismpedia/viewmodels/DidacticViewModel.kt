@@ -20,6 +20,9 @@ class DidacticViewModel(private val repository: GameRepository) : ViewModel() {
     private val _onAddNewImageEvent = SingleLiveEvent<Pair<Game, Int>>()
     val onAddNewImageEvent : LiveData<Pair<Game, Int>> = _onAddNewImageEvent
 
+    private val _onAddNewMinigameEvent = SingleLiveEvent<Void>()
+    val onAddNewMinigameEvent : LiveData<Void> = _onAddNewMinigameEvent
+
     fun getAllMinigames(game: Game) = repository.getDidacticMinigamesFromFirebase(game)
 
     fun onNextMinigame() {
@@ -34,6 +37,11 @@ class DidacticViewModel(private val repository: GameRepository) : ViewModel() {
         _onAddNewImageEvent.value = Pair(game, imageNr)
     }
 
+    fun onAddNewMinigameEvent() {
+        _onAddNewMinigameEvent.call()
+    }
+
     fun onAddImageToFirebase(game: Game, fileName: String, fileUri: Uri, currentMinigame: Minigame) = repository.addMinigameImageToFirebase(game, fileName, fileUri, currentMinigame)
 
+    fun onAddMinigameToFirebase(game: Game) = repository.addMinigame(game)
 }
