@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.example.autismpedia.R
 
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
@@ -27,9 +26,9 @@ class GoogleMapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val sydney = LatLng(45.7489, 21.2087)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Timisoara"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val timisoara = LatLng(45.7489, 21.2087)
+        googleMap.addMarker(MarkerOptions().position(timisoara).title("Marker in Timisoara"))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(timisoara, 12.0f))
     }
 
     override fun onCreateView(
