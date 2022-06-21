@@ -12,34 +12,11 @@
 
     </data>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
 
-            <ImageButton
-                android:id="@+id/thumb_button_1"
-                android:layout_width="100dp"
-                android:layout_height="75dp"
-                android:layout_marginRight="1dp"
-                android:contentDescription="description_image_1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_google" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/expanded_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="description_zoom_touch_close"
-            android:visibility="invisible" />
-
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
