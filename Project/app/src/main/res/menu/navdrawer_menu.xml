@@ -20,7 +20,7 @@
         android:title="Raport zilnic"/>
 
     <item
-        android:id="@+id/mapFragment"
+        android:id="@+id/googleMapsFragment"
         android:title="Harta"/>
 
     <item
