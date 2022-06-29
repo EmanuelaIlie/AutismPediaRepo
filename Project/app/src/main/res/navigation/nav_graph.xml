@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.autismpedia.ui.HomeFragment"
-        android:label="home_fragment"
+        android:label="Acasa"
         tools:layout="@layout/home_fragment" >
         <action
             android:id="@+id/action_homeFragment_to_infoFragment"
@@ -28,12 +28,12 @@
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.example.autismpedia.ui.InfoFragment"
-        android:label="info_fragment"
+        android:label="Informatii autism"
         tools:layout="@layout/info_fragment" />
     <fragment
         android:id="@+id/gameTypesFragment"
         android:name="com.example.autismpedia.ui.GameTypesFragment"
-        android:label="game_types_fragment"
+        android:label="Jocuri"
         tools:layout="@layout/game_types_fragment" >
         <action
             android:id="@+id/action_gameTypesFragment_to_gameIdeasFragment"
@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/gameIdeasFragment"
         android:name="com.example.autismpedia.ui.GameIdeasFragment"
-        android:label="game_ideas_fragment"
+        android:label="Jocuri"
         tools:layout="@layout/game_ideas_fragment" >
         <argument
             android:name="gameType"
@@ -73,7 +73,7 @@
     <fragment
         android:id="@+id/storiesFragment"
         android:name="com.example.autismpedia.ui.StoriesFragment"
-        android:label="fragment_stories"
+        android:label="Povesti"
         tools:layout="@layout/fragment_stories">
         <argument
             android:name="game"
@@ -82,7 +82,7 @@
     <fragment
         android:id="@+id/dailyActivitiesFragment"
         android:name="com.example.autismpedia.ui.DailyActivitiesFragment"
-        android:label="fragment_daily_activities"
+        android:label="Activitati Zilnice"
         tools:layout="@layout/fragment_daily_activities" >
         <argument
             android:name="game"
@@ -91,7 +91,7 @@
     <fragment
         android:id="@+id/didacticFragment"
         android:name="com.example.autismpedia.ui.DidacticFragment"
-        android:label="fragment_didactic"
+        android:label="Didactic"
         tools:layout="@layout/fragment_didactic">
         <argument
             android:name="game"
@@ -100,7 +100,7 @@
     <fragment
         android:id="@+id/addNewGameFragment"
         android:name="com.example.autismpedia.ui.AddNewGameFragment"
-        android:label="fragment_add_new_game"
+        android:label="Adauga joc"
         tools:layout="@layout/fragment_add_new_game" >
 
         <argument
@@ -110,7 +110,7 @@
     <fragment
         android:id="@+id/googleMapsFragment"
         android:name="com.example.autismpedia.ui.GoogleMapsFragment"
-        android:label="fragment_google_maps"
+        android:label="Harta"
         tools:layout="@layout/fragment_google_maps" />
 
 </navigation>
