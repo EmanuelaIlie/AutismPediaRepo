@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "46220159447-7dsrs2hglqnd96293h6sb89c5vpqh635.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.autismpedia",
+            "certificate_hash": "5998b42bdf103ef4cc61bfc5644b9bd1d5e2d3c5"
+          }
+        },
+        {
+          "client_id": "46220159447-il2cdckni5fmvhghr598jankp2a4cosd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.autismpedia",
+            "certificate_hash": "00e40bc825531dc2969d3d8591fbfb48fd2a5734"
+          }
+        },
+        {
           "client_id": "46220159447-k43keu3c9h8j09mhscuqkvij449j0cpk.apps.googleusercontent.com",
           "client_type": 3
         }

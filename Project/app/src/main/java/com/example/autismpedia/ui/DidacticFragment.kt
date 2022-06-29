@@ -57,6 +57,9 @@ class DidacticFragment : Fragment() {
         setupObservers()
         prefs = Prefs(requireContext())
         binding.isAdminEnabled = prefs.adminEnabled
+        if(prefs.adminEnabled) {
+            binding.btnDidacticNext.isEnabled = true
+        }
 
         return binding.root
     }
@@ -83,6 +86,9 @@ class DidacticFragment : Fragment() {
             binding.ivAnswerTwo.strokeColor = resources.getColorStateList(R.color.color_full_transparent, null)
             binding.ivAnswerThree.strokeColor = resources.getColorStateList(R.color.color_full_transparent, null)
             indexOfQuestion++
+            if(prefs.adminEnabled) {
+                binding.btnDidacticNext.isEnabled = true
+            }
             setupFlows()
         })
         viewModel.onAnswerImageClicked.observe(viewLifecycleOwner, Observer { imageIndex ->
