@@ -12,14 +12,6 @@
         android:title="Jocuri"/>
 
     <item
-        android:id="@+id/forumFragment"
-        android:title="Forum"/>
-
-    <item
-        android:id="@+id/raportFragment"
-        android:title="Raport zilnic"/>
-
-    <item
         android:id="@+id/googleMapsFragment"
         android:title="Harta"/>
 
