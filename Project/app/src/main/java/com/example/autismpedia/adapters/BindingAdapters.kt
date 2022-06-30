@@ -27,14 +27,16 @@ fun TextView.setDescription(item: Game?) {
 fun loadImage(imageView: ImageView?, game: Game) {
     // Load image with your image loading library ,like with Glide or Picasso or any of your favourite
     val storage = FirebaseStorage.getInstance()
-    val gsReference = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/")
+    val gsReference =
+        storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/")
 
     gsReference.listAll()
         .addOnSuccessListener { listResult ->
             listResult.items.forEach { item ->
-                if(item.toString().contains(game.id.toString())) {
+                if (item.toString().contains(game.id.toString())) {
                     val extension = item.toString().substringAfterLast(".")
-                    val imageRef = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${game.id}.$extension")
+                    val imageRef =
+                        storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${game.id}.$extension")
                     imageView?.let { Glide.with(it.context).load(imageRef).into(imageView) }
                 }
             }
@@ -44,33 +46,42 @@ fun loadImage(imageView: ImageView?, game: Game) {
 @BindingAdapter("loadImageParam", "imageNr")
 fun loadImageParam(imageView: ImageView?, game: Game, imageNr: Int) {
     val storage = FirebaseStorage.getInstance()
-    val gsReference = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${Constants.FIRESTORE_IMAGES_FOLDER}/")
+    val gsReference =
+        storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${Constants.FIRESTORE_IMAGES_FOLDER}/")
 
     gsReference.listAll()
         .addOnSuccessListener { listResult ->
-            listResult.items.forEach { storageItem ->
-                if(storageItem.toString().contains(game.images[imageNr])) {
-                    val extension = storageItem.toString().substringAfterLast(".")
-                    val imageRef = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${Constants.FIRESTORE_IMAGES_FOLDER}/${game.images[imageNr]}.$extension")
-                    imageView?.let { Glide.with(it.context).load(imageRef).into(imageView) }
+            if (imageNr < game.images.size) {
+                listResult.items.forEach { storageItem ->
+                    if (storageItem.toString().contains(game.images[imageNr])) {
+                        val extension = storageItem.toString().substringAfterLast(".")
+                        val imageRef =
+                            storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${game.type}/${Constants.FIRESTORE_IMAGES_FOLDER}/${game.images[imageNr]}.$extension")
+                        imageView?.let { Glide.with(it.context).load(imageRef).into(imageView) }
+                    }
                 }
             }
+
         }
 }
 
 @BindingAdapter("loadDidacticImage", "imageNr")
 fun loadDidacticImage(imageView: ImageView?, minigame: Minigame?, imageNr: Int) {
     val storage = FirebaseStorage.getInstance()
-    val gsReference = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${Constants.FIRESTORE_DIDACTIC_COLLECTION}/")
+    val gsReference =
+        storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${Constants.FIRESTORE_DIDACTIC_COLLECTION}/")
 
     if (minigame != null) {
         gsReference.listAll()
             .addOnSuccessListener { listResult ->
-                listResult.items.forEach { storageItem ->
-                    if(storageItem.toString().contains(minigame.images[imageNr])) {
-                        val extension = storageItem.toString().substringAfterLast(".")
-                        val imageRef = storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${Constants.FIRESTORE_DIDACTIC_COLLECTION}/${minigame.images[imageNr]}.$extension")
-                        imageView?.let { Glide.with(it.context).load(imageRef).into(imageView) }
+                if (imageNr < minigame.images.size) {
+                    listResult.items.forEach { storageItem ->
+                        if (storageItem.toString().contains(minigame.images[imageNr])) {
+                            val extension = storageItem.toString().substringAfterLast(".")
+                            val imageRef =
+                                storage.getReferenceFromUrl("gs://autismpedia-e7d4a.appspot.com/${Constants.FIRESTORE_DIDACTIC_COLLECTION}/${minigame.images[imageNr]}.$extension")
+                            imageView?.let { Glide.with(it.context).load(imageRef).into(imageView) }
+                        }
                     }
                 }
             }
