@@ -99,7 +99,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/animation_sound"
                 app:loadImageParam="@{game}"
-                tools:src="@drawable/ic_google" />
+                tools:src="@drawable/add_image_icon" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="40dp"
@@ -125,7 +125,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_zero"
                 app:loadImageParam="@{game}"
-                tools:src="@drawable/ic_google" />
+                tools:src="@drawable/add_image_icon" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="40dp"
@@ -151,7 +151,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_one"
                 app:loadImageParam="@{game}"
-                tools:src="@drawable/ic_google" />
+                tools:src="@drawable/add_image_icon" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="40dp"
@@ -177,7 +177,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_two"
                 app:loadImageParam="@{game}"
-                tools:src="@drawable/ic_google" />
+                tools:src="@drawable/add_image_icon" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="40dp"
@@ -203,7 +203,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_three"
                 app:loadImageParam="@{game}"
-                tools:src="@drawable/ic_google" />
+                tools:src="@drawable/add_image_icon" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="40dp"
@@ -231,7 +231,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_image_four"
                 app:loadImageParam="@{game}"
-                tools:src="@drawable/ic_google" />
+                tools:src="@drawable/add_image_icon" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="40dp"

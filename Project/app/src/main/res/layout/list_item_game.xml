@@ -34,11 +34,11 @@
             android:adjustViewBounds="true"
             app:shapeAppearanceOverlay="@style/ImageView.Corner"
             app:loadImage="@{game}"
-            android:src="@drawable/ic_google"
+            android:src="@drawable/ic_baseline_image_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_google"/>
+            tools:src="@drawable/add_image_icon" />
 
         <TextView
             android:id="@+id/tv_game_title"
