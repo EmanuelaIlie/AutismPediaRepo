@@ -19,12 +19,13 @@
     <string name="text_info_seventh">\t\tDiagnosticul precoce cu inițierea imediată a terapiei sunt importante pentru ameliorarea simptomelor și îmbunatățirea calității vieții copiilor cu autism și a familiilor acestora. Nu exista o analiza care sa diagnosticheze boala. Este diagnosticată exclusiv pe baza observării modului în care copilul vorbește, interacționeaza și acționează în comparație cu alți copii de aceeași vârstă. Medicul psihiatru pediatru diagnostichează autismul urmărind copilul și punând întrebări părinților.\n\t\tCel mai frecvent, autismul tipic este diagnosticat în jurul vârstei de 3 ani, datorită întârzierii limbajului sau dificultăților de integrare a copilului la gradiniță.\n\t\tAcademia Americana de Pediatrie recomandă screeningul pentru tulburări de dezvoltare tuturor copiilor cu vârsta între 18–24 luni.</string>
     <string name="deconectare">Deconectare</string>
     <string name="preference_file_key">com.example.autismpedia.PREFERENCE_FILE_KEY</string>
-    <string name="play_sound">Pornește</string>
+    <string name="play_sound">Audio</string>
     <string name="stop_sound">Stop</string>
     <string name="superuser_enabled">Administrator</string>
     <string name="game_title">Titlu joc..</string>
     <string name="question_title">Întrebare…</string>
     <string name="add_game">Adaugă joc</string>
+    <string name="bun_venit">Bun venit!</string>
     <string name="meet_all_requirements">Adaugă titlu pentru joc și imagine</string>
 
 </resources>

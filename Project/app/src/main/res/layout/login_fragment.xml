@@ -39,14 +39,29 @@
             android:id="@+id/animationView"
             android:layout_width="wrap_content"
             android:layout_height="150dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_clipToCompositionBounds="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/welcome" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_bun_venit"
+            style="@style/BunVenit"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.421"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/main_green_background"
+            android:text="@string/bun_venit" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
